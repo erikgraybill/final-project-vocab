@@ -1,8 +1,8 @@
 import { LitElement, html, css } from 'lit';
 
-export class VocabWords extends LitElement {
+export class VocabTerm extends LitElement {
     static get tag() {
-        return 'vocab-words'
+        return 'vocab-term'
     }
 
     static get properties() {
@@ -40,4 +40,4 @@ export class VocabWords extends LitElement {
         `;
     }
 }
-customElements.define(VocabWords.tag, VocabWords);
+customElements.define(VocabTerm.tag, VocabTerm);
