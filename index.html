@@ -4,48 +4,54 @@
 <head>
     <title>Term Glossary</title>
 </head>
-
 <body>
-  <form action="/addword" method="post" id="addword">
-    <h1>Add New Word</h1>
-    <div>
-        <label for="term">Term:</label>
-        <input type="text" id="term" name="term" placeholder="Enter new term"/>
-    </div>
-    <div>
-        <label for="definition">Definition:</label>
-        <input type="text" id="definition" name="definition" placeholder="Enter term definition"/>
-    </div>
-    <div>
-        <label for="links">Links:</label>
-        <input type="" id="links" name="links" placeholder="Add any links"/>
-    </div>
-    <button type="submit">Add Word</button>
-  </form>
-  <script type="module" src="./src/term-glossary.js">
-    import '@lrnwebcomponents/vocab-term/vocab-term.js';
-    document.querySelector('#submit').addEventListener('click', e => {
-        //
-    });
-  </script>
-  <p>Text area</p> 
-  <button id="process">Process</button>
-  <script type="module" src="./src/term-glossary.js">
-      import '@lrnwebcomponents/vocab-term/vocab-term.js';
-      //search vocab database, replace words with vocab-term
-      document.querySelector('process').addEventListener('click', e => {
-          //
-      });
-  </script>
-  <button id="showall">Show full glossary</button>
-  <script type="module" src="./src/term-glossary.js">
-      import ""; 
-      // load full glossary as dl 
-      document.querySelector('#showall').addEventListener('click', e => {
-        //
-      });        
-  </script>
-  <h1>Glossary</h1>
-  <dl></dl>
+    <form action="/addword" method="post" id="addword">
+        <h1>Add New Word</h1>
+        <div> 
+            <label for="term">Term:</label>
+            <input type="text" id="term" name="term" placeholder="Enter new term"/>
+        </div>
+        <div>
+            <label for="definition">Definition:</label>
+            <input type="text" id="definition" name="definition" placeholder="Enter term definition"/>
+        </div>
+        <div>
+            <label for="links">Links:</label>
+            <input type="" id="links" name="links" placeholder="Add any links"/>
+        </div>
+        <button type="submit">Add Word</button>
+    </form>
+    <script type="module" src="./src/term-glossary.js">
+        import '@lrnwebcomponents/vocab-term/vocab-term.js';
+        // add term to glossary db on submit 
+        document.querySelector('#submit').addEventListener('click', e => {
+            document.querySelector('#addword').term = document.querySelector('#term').value;
+            document.querySelector('#addword').definition = document.querySelector('#definition').value;
+            document.querySelector('#addword').links = document.querySelector('#links').value;
+            document.querySelector('#addword').addWord();
+        });
+    </script>
+    </br>
+    <p>Text area</p>
+    <textarea></textarea>
+    <input id="input" type="text" value="Enter text" />
+    </br>
+    <button id="process">Process</button>
+    <script type="module" src="./src/term-glossary.js">
+        import '@lrnwebcomponents/vocab-term/vocab-term.js';
+        //search vocab database, replace words with vocab-term
+        document.querySelector('#process').addEventListener('click', e => {
+            document.querySelector('#input').searchData();
+        });
+    </script>
+    </br>
+    <button id="showall">Show full glossary</button>
+    <term-glossary id="gloss"></term-glossary>
+    <script type="module" src="./src/term-glossary.js">
+        // load full glossary as dl 
+        document.querySelector('#showall').addEventListener('click', e => {
+            document.querySelector('#gloss').getData(); 
+        });        
+    </script>
 </body>
 </html>
