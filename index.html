@@ -66,6 +66,7 @@
   <p>Text area</p> 
   <button id="process">Process</button>
   <script type="module">
+      import '@lrnwebcomponents/vocab-term/vocab-term.js';
       //search vocab database, replace words with vocab-term
       document.querySelector('process').addEventListener('click', e => {
           //
@@ -73,7 +74,7 @@
   </script>
   <button id="fullglossary">Show whole glossary</button>
   <script type="module">
-      import ""; 
+      // import ""; 
       // load full glossary as dl 
       document.querySelector('#fullglossary').addEventListener('click', e => {
           //
