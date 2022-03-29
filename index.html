@@ -58,7 +58,28 @@
     <button type="submit">Add Word</button>
   </form>
   <script type="module" src="./src/add-word.js">
-    import "";
+    import '@lrnwebcomponents/vocab-term/vocab-term.js';
+    document.querySelector('#submit').addEventListener('click', e => {
+        //
+    });
   </script>
+  <p>Text area</p> 
+  <button id="process">Process</button>
+  <script type="module">
+      //search vocab database, replace words with vocab-term
+      document.querySelector('process').addEventListener('click', e => {
+          //
+      });
+  </script>
+  <button id="fullglossary">Show whole glossary</button>
+  <script type="module">
+      import ""; 
+      // load full glossary as dl 
+      document.querySelector('#fullglossary').addEventListener('click', e => {
+          //
+      });        
+  </script>
+  <h1>Glossary</h1>
+  <dl></dl>
 </body>
 </html>
