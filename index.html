@@ -2,45 +2,10 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="Description" content="IST Vercel app example">
-  <title>Vercel example</title>
-
-  <base href="/">
-
-  <style>
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: sans-serif;
-      background-color: #ededed;
-    }
-    x-weather {
-      border: 1px solid black;
-    }
-  </style>
-  <title>ist-vercel-demo</title>
+    <title>Term Glossary</title>
 </head>
 
 <body>
-  <x-weather city="pittsburgh"></x-weather>
-  <x-weather city="boston"></x-weather>
-  <x-weather city="portland"></x-weather>
-
-  <lrnsys-comment-list></lrnsys-comment-list>
-
-  <script type="module" src="./src/x-weather.js"></script>
-  <script type="module" defer async>
-    await import("@lrnwebcomponents/lrnsys-comment/lib/lrnsys-comment-list.js").then(() => {
-		fetch(`/api/comments?op=GET`).then(res => res.json()).then((comments) => 
-    {
-      document.querySelector("lrnsys-comment-list").comments = comments;
-    });
-    });
-  </script>
   <form action="/addword" method="post" id="addword">
     <h1>Add New Word</h1>
     <div>
@@ -57,7 +22,7 @@
     </div>
     <button type="submit">Add Word</button>
   </form>
-  <script type="module" src="./src/add-word.js">
+  <script type="module" src="./src/term-glossary.js">
     import '@lrnwebcomponents/vocab-term/vocab-term.js';
     document.querySelector('#submit').addEventListener('click', e => {
         //
@@ -65,19 +30,19 @@
   </script>
   <p>Text area</p> 
   <button id="process">Process</button>
-  <script type="module">
+  <script type="module" src="./src/term-glossary.js">
       import '@lrnwebcomponents/vocab-term/vocab-term.js';
       //search vocab database, replace words with vocab-term
       document.querySelector('process').addEventListener('click', e => {
           //
       });
   </script>
-  <button id="fullglossary">Show whole glossary</button>
-  <script type="module">
-      // import ""; 
+  <button id="showall">Show full glossary</button>
+  <script type="module" src="./src/term-glossary.js">
+      import ""; 
       // load full glossary as dl 
-      document.querySelector('#fullglossary').addEventListener('click', e => {
-          //
+      document.querySelector('#showall').addEventListener('click', e => {
+        //
       });        
   </script>
   <h1>Glossary</h1>
