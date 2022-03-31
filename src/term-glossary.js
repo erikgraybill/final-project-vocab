@@ -19,10 +19,10 @@ export class TermGlossary extends LitElement {
 
     constructor() {
         super();
-        this.term = "";
-        this.definition = "";
+        this.term = '';
+        this.definition = '';
         this.links = [];
-        this.endpoint = "";
+        this.endpoint = '';
         this.glossary = [];
     }
 
@@ -73,7 +73,6 @@ export class TermGlossary extends LitElement {
 
     render() {
         return html`
-            <h1>Glossary</h1>
             <dl>
                 ${this.glossary.map(
                     item => html`
