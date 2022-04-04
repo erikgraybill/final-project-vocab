@@ -1,8 +1,14 @@
 import { LitElement, html, css } from 'lit';
+import "@lrnwebcomponents/vocab-term/vocab-term.js";
 
-export class VocabTerm extends LitElement {
+// @feedback this is not the vocab-term, this is the app
+// I have taken the liberty of adding in the import that visualizes
+// the term which you copied the stub code for.
+// the scope of this element is to save data in a database
+// and then query a segment of text and return the possible words that it discovered
+export class VocabTermApp extends LitElement {
     static get tag() {
-        return 'vocab-term'
+        return 'vocab-term-app'
     }
 
     static get properties() {
@@ -40,4 +46,4 @@ export class VocabTerm extends LitElement {
         `;
     }
 }
-customElements.define(VocabTerm.tag, VocabTerm);
+customElements.define(VocabTermApp.tag, VocabTermApp);

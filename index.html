@@ -26,21 +26,8 @@
 </head>
 
 <body>
-  <x-weather city="pittsburgh"></x-weather>
-  <x-weather city="boston"></x-weather>
-  <x-weather city="portland"></x-weather>
+  <vocab-term-app id="w"></vocab-term-app>
 
-  <lrnsys-comment-list></lrnsys-comment-list>
-
-  <script type="module" src="./src/x-weather.js"></script>
-  <script type="module" defer async>
-    await import("@lrnwebcomponents/lrnsys-comment/lib/lrnsys-comment-list.js").then(() => {
-		fetch(`/api/comments?op=GET`).then(res => res.json()).then((comments) => 
-    {
-      document.querySelector("lrnsys-comment-list").comments = comments;
-    });
-    });
-  </script>
   <form action="/addword" method="post" id="addword">
     <h1>Add New Word</h1>
     <div>
@@ -57,9 +44,15 @@
     </div>
     <button id="test" type="submit">Add Word</button>
   </form>
-  <vocab-term id="w"></vocab-term>
   <script type="module">
-    import "./src/vocab-term.js";
+    import "./src/vocab-term-app.js";
+    // @feedback /addword needs to be an endpoint in the api directory that you use fetch
+    // in order to POST the data at the endpoint. It should then take that endpoint and
+    // save the data in the database
+    // You'll also need buttons for rendering all words in the database
+    // as well as a way of sending a snippet of text to another endpoint to see
+    // which vocab words exist within it
+    
     document.querySelector('#test').addEventListener('click', e => {
       document.querySelector('#w').getData();
     });
