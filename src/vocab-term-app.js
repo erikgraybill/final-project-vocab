@@ -13,7 +13,8 @@ export class VocabTermApp extends LitElement {
 
     static get properties() {
 		return {
-			endpoint: { type: String },
+			addEnd: { type: String },
+            getEnd: { type: String },
 			term: { type: String },
             def: { type: String },
             links: { type: Array }
@@ -22,7 +23,8 @@ export class VocabTermApp extends LitElement {
 
 	constructor() {
 		super();
-        this.endpoint = '/api/vocab';
+        this.addEnd = '/api/addWord.js';
+        this.getEnd = '/api/getWords.js';
 		this.term = '';
         this.def = '';
         this.links = [];
