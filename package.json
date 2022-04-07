@@ -21,7 +21,10 @@
   "dependencies": {
     "lit": "2.2.0",
     "node-fetch": "^3.1.0",
-    "@lrnwebcomponents/lrnsys-comment": "4.0.12"
+    "@lrnwebcomponents/vocab-term": "^4.0.20",
+    "@lrnwebcomponents/simple-popover": "^4.0.20",
+    "@lrnwebcomponents/simple-modal": "^4.0.20",
+    "planetscale-node": "^0.3.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.16.4",
