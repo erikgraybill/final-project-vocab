@@ -13,9 +13,9 @@ export default async function handler(req, res) {
   };
   // this option helps establish a more secure connection object
   const conn = new PSDB('main', {namedPlaceholders: true});
-  // INSERT the values that came across into the terms table
+  // INSERT the values that came across into the words table
   const [dbResult] = await conn.execute(
-    `INSERT INTO terms(word, definition, links) VALUES( :word, :definition, :links)`,
+    `INSERT INTO vocab_database(word, definition, links) VALUES( :word, :definition, :links)`,
     vocab_database
   );
   // take the id that comes back and then apply to the user object
