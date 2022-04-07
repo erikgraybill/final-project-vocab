@@ -1,3 +1,9 @@
+# Term Glossary Project
+
+The term glossary microservice project seeks to present vocabulary based on what a user adds to a page. 
+This draws on previous work which created methods to present vocabulary terms in context of the given material. 
+Therefore, the project seeks to be able to dynamically store and process vocabulary terms to improve a user's productivity.
+
 # ist-vercel-demo
 
 This is a repo that has some examples of how to use vercel endpoints to pipe data in from a data endpoint.
