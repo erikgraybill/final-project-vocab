@@ -1,0 +1,121 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "IST 402 Vocab Microfrontend",
+    "description": "This documentation is for our vocab term microfrontend. A word and it's description, as well as any related links, can be added to a database. A word can be searched for, or all words in the database can be returned.",
+    "contact": {
+      "email": "erg5272@psu.edu"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Find out more about our project",
+    "url": "https://term-glossary-group-e11ty-7bvtts2pl-rajivthummala-psu.vercel.app/"
+  },
+  "servers": [
+    {
+      "url": "final-project-vocab-m4zlbhkni-zjohnson10.vercel.app/src"
+    }
+  ],
+  "paths": {
+    "/addWord": {
+      "post": {
+        "tags": [
+          "addWord"
+        ],
+        "summary": "Add a word",
+        "description": "Add a single word, description, and links to database",
+        "operationId": "addWord",
+        "requestBody": {
+          "description": "Word object that needs to be added to the database",
+          "content": {
+            "*/*": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {}
+          },
+          "405": {
+            "description": "Invalid input",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/getWord": {
+      "get": {
+        "tags": [
+          "getWord"
+        ],
+        "summary": "Returns a single word",
+        "description": "Returns a single word, description, and links from database",
+        "operationId": "getWord",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid Request",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/getWords": {
+      "get": {
+        "tags": [
+          "getWords"
+        ],
+        "summary": "Returns all words",
+        "description": "Returns all words, descriptions, and links from database",
+        "operationId": "getWords",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid Request",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {}
+}
