@@ -5,8 +5,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="Description" content="IST Vercel app example">
-  <title>Vercel example</title>
+  <meta name="Description" content="IST 402 Vocab Glossary Final Project">
+  <title>Vocab Glossary</title>
 
   <base href="/">
 
@@ -18,17 +18,14 @@
       font-family: sans-serif;
       background-color: #ededed;
     }
-    x-weather {
-      border: 1px solid black;
-    }
   </style>
-  <title>ist-vercel-demo</title>
+  <title>final-project-vocab</title>
 </head>
 
 <body>
   <vocab-term-app id="w"></vocab-term-app>
 
-  <form action="/addword" method="post" id="addword">
+  <form action="./api/addWord.js" method="POST" id="addword">
     <h1>Add New Word</h1>
     <div>
         <label for="term">Term:</label>
@@ -42,32 +39,32 @@
         <label for="links">Links:</label>
         <input type="text" id="links" name="links" placeholder="Add any links"/>
     </div>
-    <button id="test" type="submit">Add Word</button>
+    <button type="submit">Add Word</button>
   </form>
-  <script type="module">
-    import "./src/vocab-term-app.js";
+  <add-word></add-word>
+  <script type="module" src=".api/addWord.js">
     // @feedback /addword needs to be an endpoint in the api directory that you use fetch
     // in order to POST the data at the endpoint. It should then take that endpoint and
     // save the data in the database
     // You'll also need buttons for rendering all words in the database
     // as well as a way of sending a snippet of text to another endpoint to see
     // which vocab words exist within it
-    
+    import "./src/vocab-term-app.js";
     document.querySelector('#test').addEventListener('click', e => {
       document.querySelector('#w').getData();
     });
         // add term to glossary db on submit 
         document.querySelector('#submit').addEventListener('click', e => {
-            document.querySelector('#addword').term = document.querySelector('#term').value;
+            document.querySelector('#addword').word = document.querySelector('#term').value;
             document.querySelector('#addword').definition = document.querySelector('#definition').value;
             document.querySelector('#addword').links = document.querySelector('#links').value;
-            document.querySelector('#addword').addWord();
+            document.querySelector('#addword').addWord(); // or other POST method name
         });
     </script>
     </br>
     <h1>Search Vocab</h1>
     <p>Text area</p>
-    <textarea id="" placeholder="Enter text"></textarea>
+    <textarea id="input" placeholder="Enter text"></textarea>
     <input id="input" type="text" placeholder="Enter text"/> 
     </br>
     <button id="process">Process</button>
