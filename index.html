@@ -25,7 +25,6 @@
 <body>
   <vocab-term-app id="w"></vocab-term-app>
 
-  <form action="./api/addWord.js" method="POST" id="addword">
     <h1>Add New Word</h1>
     <div>
         <label for="term">Term:</label>
@@ -39,27 +38,15 @@
         <label for="links">Links:</label>
         <input type="text" id="links" name="links" placeholder="Add any links"/>
     </div>
-    <button type="submit">Add Word</button>
-  </form>
-  <add-word></add-word>
-  <script type="module" src=".api/addWord.js">
+    <button id="add">Add Word</button>
+  <script type="module">
     // @feedback /addword needs to be an endpoint in the api directory that you use fetch
     // in order to POST the data at the endpoint. It should then take that endpoint and
     // save the data in the database
     // You'll also need buttons for rendering all words in the database
     // as well as a way of sending a snippet of text to another endpoint to see
     // which vocab words exist within it
-    import "./src/vocab-term-app.js";
-    document.querySelector('#test').addEventListener('click', e => {
-      document.querySelector('#w').getData();
-    });
-        // add term to glossary db on submit 
-        document.querySelector('#submit').addEventListener('click', e => {
-            document.querySelector('#addword').word = document.querySelector('#term').value;
-            document.querySelector('#addword').definition = document.querySelector('#definition').value;
-            document.querySelector('#addword').links = document.querySelector('#links').value;
-            document.querySelector('#addword').addWord(); // or other POST method name
-        });
+
     </script>
     </br>
     <h1>Search Vocab</h1>
