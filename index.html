@@ -5,8 +5,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="Description" content="IST Vercel app example">
-  <title>Vercel example</title>
+  <meta name="Description" content="IST 402 Vocab Glossary Final Project">
+  <title>Vocab Glossary</title>
 
   <base href="/">
 
@@ -18,11 +18,8 @@
       font-family: sans-serif;
       background-color: #ededed;
     }
-    x-weather {
-      border: 1px solid black;
-    }
   </style>
-  <title>ist-vercel-demo</title>
+  <title>final-project-vocab</title>
 </head>
 
 <body>
@@ -50,6 +47,7 @@
     // You'll also need buttons for rendering all words in the database
     // as well as a way of sending a snippet of text to another endpoint to see
     // which vocab words exist within it
+
     // add user response
     document.querySelector('#add').addEventListener('click', (e) => {
       const term = {
@@ -71,7 +69,7 @@
     </br>
     <h1>Search Vocab</h1>
     <p>Text area</p>
-    <textarea id="" placeholder="Enter text"></textarea>
+    <textarea id="input" placeholder="Enter text"></textarea>
     <input id="input" type="text" placeholder="Enter text"/> 
     </br>
     <button id="process">Process</button>
