@@ -38,6 +38,21 @@ export class VocabTermApp extends LitElement {
 
     }
 
+    addTerm(word) {
+        var queryString = Object.keys(word).map(key => key + '=' + word[key]).join('&');
+        fetch(`/api/addWord.js?${queryString}`).then(res => res.json()).then((data) => {
+            console.log(data);
+        });
+    }
+
+    deleteTerm() {
+
+    }
+
+    viewTerms() {
+
+    }
+
     renderResult(renderType) {
         if (renderType === 'term') {
             return html`

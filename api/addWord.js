@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   const conn = new PSDB('main', {namedPlaceholders: true});
   // INSERT the values that came across into the words table
   const [dbResult] = await conn.execute(
-    `INSERT INTO vocab_database(word, definition, links) VALUES( :word, :definition, :links)`,
+    `INSERT INTO vocab(word, definition, links) VALUES( :word, :definition, :links)`,
     term
   );
   // take the id that comes back and then apply to the user object
