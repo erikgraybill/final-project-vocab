@@ -58,15 +58,22 @@
         links: document.querySelector('#links').value,
       };
       console.log(term);
-      var queryString = Object.keys(term).map(key => key + '=' + term[key]).join('&');
-      fetch(`/api/addWord?${queryString}`);
-      /*
-      fetch(`/api/addWord?${queryString}`).then(res => res.json()).then((data) => {
-        // update the data bc we just got a result that we added a user
-        // updateData();
-      });
-      */
+      document.querySelector("vocab-term-app").addTerm(term);
     });
+
+    /*addTerm(term) {
+        var queryString = Object.keys(term).map(key => key + '=' + term[key]).join('&');
+        fetch(`/api/addWord?${queryString}`);
+    }
+
+    deleteTerm() {
+
+    }
+
+    viewTerms() {
+
+    }
+    */
     </script>
     </br>
     <h1>Search Vocab</h1>

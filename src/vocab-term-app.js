@@ -17,7 +17,9 @@ export class VocabTermApp extends LitElement {
             getEnd: { type: String },
 			term: { type: String },
             def: { type: String },
-            links: { type: Array }
+            links: { type: Array },
+            renderType: { type: String },
+            words: { type: Array }
 		}
 	}
 
@@ -28,23 +30,48 @@ export class VocabTermApp extends LitElement {
 		this.term = '';
         this.def = '';
         this.links = [];
+        this.renderType = 'term';
+        this.words = [];
 	}
 
     async getData() {
 
     }
 
+    renderResult(renderType) {
+        if (renderType === 'term') {
+            return html`
+                ${this.words.map(
+                    item => html`
+                    <vocab-term>
+                        <details>
+                        <summary>Coffee</summary>
+                        <p slot="information">Bean juice made into warm beverage.</p>
+                        <ul class="links">
+                            <li><a href="https://www.starbucks.com/">Link to starbucks information</a></li>
+                        </ul>
+                        </details>
+                    </vocab-term>
+                `)}
+            `;
+        }
+        else {
+            return html`
+                <dl>
+                    ${this.words.map(
+                        item => html`
+                        <dt>Word</dt>
+                        <dd>Description</dd>
+                    `)}
+                </dl>
+            `;
+        }
+    }
+
     render() {
+        
         return html`
-            <vocab-term>
-                <details>
-                <summary>Coffee</summary>
-                <p slot="information">Bean juice made into warm beverage.</p>
-                <ul class="links">
-                    <li><a href="https://www.starbucks.com/">Link to starbucks information</a></li>
-                </ul>
-                </details>
-            </vocab-term>
+            ${this.renderResult(this.renderType)};
         `;
     }
 }
