@@ -9,10 +9,11 @@ export class TermGlossary extends LitElement {
 
     static get properties() {
         return {
-            term: {},
-            definition: {},
-            links: {},
-            endpoint: {},
+            term: { type: String },
+            definition: { type: String },
+            links:  {type: Array },
+            endpoint: { type: String },
+            searchEnd: { type: String},
             glossary: {},
         }
     }
@@ -22,26 +23,14 @@ export class TermGlossary extends LitElement {
         this.term = '';
         this.definition = '';
         this.links = [];
-        this.endpoint = '';
+        this.endpoint = '.api/getWords.js';
+        this.searchEnd = 'api/getWord.js';
         this.glossary = [];
     }
 
-    async addWord() {
-        html` 
-        <vocab-term>
-            <details>
-                <summary>${this.term}</summary>
-                <p slot="information">${this.definition}</p>
-                <ul class="links">
-                    <!-- <li><a href="${this.links}">Link to information</a></li> -->
-                </ul>
-            </details>
-        </vocab-term>
-        `
-    }
-
+    // query db for all terms
     async getData() {
-        fetch('').then(resp => {
+        fetch(this.endpoint).then(resp => {
             if (resp.ok) {
               return resp.json();
             }
@@ -50,8 +39,8 @@ export class TermGlossary extends LitElement {
             this.glossary = [];
             for (let i = 0; i < data.collection.items.length; i++) {
                 const results = {
-                    term: data.collection.items[i].data[0].summary,
-                    definition: data.collection.items[i].data[0].information,
+                    term: data.collection.items[i].data[0].word,
+                    definition: data.collection.items[i].data[0].definition,
                     links: data.collection.items[i].data[0].links,
                 };
                 this.glossary.push(results);
@@ -59,17 +48,32 @@ export class TermGlossary extends LitElement {
         });
     }
 
+    // can be moved to separate file
+    // gathers data from processing block, sends to db to find matches
     async searchData() {
-        fetch('').then();
+        // search db for match
+        fetch(`${this.searchEnd}?word=${term}`).then();
+        // replace found terms with vocab-term tag
+        html` 
+        <vocab-term>
+            <details>
+                <summary>${this.term}</summary>
+                <p slot="information">${this.definition}</p>
+                <ul class="links">
+                    <li><a href="${this.links[0]}">Link to more information</a></li>
+                </ul>
+            </details>
+        </vocab-term>
+        `
     }
 
-    updated(changedProperties) {
-		changedProperties.forEach((old, propName) => {
-			if (propName === '') {
-				this.getData(this[propName]); 
-			}
-		});
-	}
+    // updated(changedProperties) {
+	// 	changedProperties.forEach((old, propName) => {
+	// 		if (propName === '') {
+	// 			this.getData(this[propName]); 
+	// 		}
+	// 	});
+	// }
 
     render() {
         return html`
