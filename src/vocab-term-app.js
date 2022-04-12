@@ -38,8 +38,8 @@ export class VocabTermApp extends LitElement {
 
     }
 
-    renderResult(renderType) {
-        if (renderType === 'term') {
+    renderResult() {
+        if (this.renderType === 'term') {
             return html`
                 ${this.words.map(
                     item => html`
@@ -71,7 +71,7 @@ export class VocabTermApp extends LitElement {
     render() {
         
         return html`
-            ${this.renderResult(this.renderType)};
+            ${this.renderResult()};
         `;
     }
 }
