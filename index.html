@@ -40,6 +40,7 @@
     </div>
     <button id="add">Add Word</button>
   <script type="module">
+    import "./src/vocab-term-app.js";
     // @feedback /addword needs to be an endpoint in the api directory that you use fetch
     // in order to POST the data at the endpoint. It should then take that endpoint and
     // save the data in the database
@@ -47,6 +48,23 @@
     // as well as a way of sending a snippet of text to another endpoint to see
     // which vocab words exist within it
 
+    // add user response
+    document.querySelector('#add').addEventListener('click', (e) => {
+      const term = {
+        word: document.querySelector('#term').value,
+        definition: document.querySelector('#definition').value,
+        links: document.querySelector('#links').value,
+      };
+      console.log(term);
+      var queryString = Object.keys(term).map(key => key + '=' + term[key]).join('&');
+      fetch(`/api/addWord?${queryString}`);
+      /*
+      fetch(`/api/addWord?${queryString}`).then(res => res.json()).then((data) => {
+        // update the data bc we just got a result that we added a user
+        // updateData();
+      });
+      */
+    });
     </script>
     </br>
     <h1>Search Vocab</h1>
