@@ -25,8 +25,8 @@ export class VocabTermApp extends LitElement {
 
 	constructor() {
 		super();
-        this.addEnd = '/api/addWord.js';
-        this.getEnd = '/api/getWords.js';
+        this.addEnd = '/api/addWord';
+        this.getEnd = '/api/getWords';
 		this.term = '';
         this.def = '';
         this.links = [];
@@ -34,13 +34,10 @@ export class VocabTermApp extends LitElement {
         this.words = [];
 	}
 
-    async getData() {
-
-    }
-
     addTerm(word) {
         var queryString = Object.keys(word).map(key => key + '=' + word[key]).join('&');
-        fetch(`/api/addWord.js?${queryString}`).then(res => res.json()).then((data) => {
+        console.log(queryString);
+        fetch(`${this.addEnd}?${queryString}`).then(res => res.json()).then((data) => {
             console.log(data);
         });
     }
@@ -50,7 +47,9 @@ export class VocabTermApp extends LitElement {
     }
 
     viewTerms() {
-
+        fetch(`${this.getEnd}`).then(res => res.json()).then((data) => {
+            console.log(data);
+        });
     }
 
     renderResult() {
