@@ -8,17 +8,18 @@ export default async function handler(req, res) {
   console.log(req.query);
   const { word, definition, links } = req.query;
   var term = {
-    "word": word,
-    "definition": definition,
-    "links": links
+    word: word,
+    definition: definition,
+    links: links
   };
   // this option helps establish a more secure connection object
   const conn = new PSDB('main', {namedPlaceholders: true});
-  // INSERT the values that came across into the words table
+  // INSERT the values that came across into the vocab table
   const [dbResult] = await conn.execute(
-    `INSERT INTO vocab_database(word, definition, links) VALUES( :word, :definition, :links)`,
+    `INSERT INTO VOCAB(Word, Definition, Links) VALUES( :word, :definition, :links)`,
     term
   );
+  console.log(dbResult);
   // take the id that comes back and then apply to the user object
   term.id = dbResult.insertId
   res.json(term);

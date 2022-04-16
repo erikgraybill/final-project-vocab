@@ -48,7 +48,7 @@
     // as well as a way of sending a snippet of text to another endpoint to see
     // which vocab words exist within it
 
-    // add user response
+    // add word to glossary event
     document.querySelector('#add').addEventListener('click', (e) => {
       const term = {
         word: document.querySelector('#term').value,
@@ -56,14 +56,7 @@
         links: document.querySelector('#links').value,
       };
       console.log(term);
-      var queryString = Object.keys(term).map(key => key + '=' + term[key]).join('&');
-      fetch(`/api/addWord?${queryString}`);
-      /*
-      fetch(`/api/addWord?${queryString}`).then(res => res.json()).then((data) => {
-        // update the data bc we just got a result that we added a user
-        // updateData();
-      });
-      */
+      document.querySelector('vocab-term-app').addTerm(term);
     });
     </script>
     </br>
@@ -87,7 +80,7 @@
     <script type="module" src="./src/term-glossary.js">
         // load full glossary as dl 
         document.querySelector('#showall').addEventListener('click', e => {
-            document.querySelector('#gloss').getData(); 
+            document.querySelector('term-glossary').getData(); 
         });        
     </script>
 </body>

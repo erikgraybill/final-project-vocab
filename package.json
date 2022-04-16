@@ -1,8 +1,8 @@
 {
-  "name": "ist-vercel-demo",
-  "description": "Webcomponent ist-vercel-demo following open-wc recommendations",
+  "name": "final-project-vocab",
+  "description": "",
   "license": "MIT",
-  "author": "ist-vercel-demo",
+  "author": "final-project-vocab",
   "version": "0.0.0",
   "main": "index.js",
   "type": "module",

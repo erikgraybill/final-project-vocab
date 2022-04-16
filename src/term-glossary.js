@@ -23,8 +23,8 @@ export class TermGlossary extends LitElement {
         this.term = '';
         this.definition = '';
         this.links = [];
-        this.endpoint = '.api/getWords.js';
-        this.searchEnd = 'api/getWord.js';
+        this.endpoint = '.api/getWords';
+        this.searchEnd = 'api/getWord';
         this.glossary = [];
     }
 
