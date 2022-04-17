@@ -46,34 +46,14 @@ export class VocabTermApp extends LitElement {
 
     }
 
-    updated(changedProperties) {
-        changedProperties.forEach((oldValue, propName) => {
-            if(propName === 'renderType' && this[propName]) {
-                this.dispatchEvent(
-                    new CustomEvent('results-changed', {
-                      detail: {
-                        value: this.words,
-                      },
-                    })
-                );
-            }
-        });
+    searchTerms() {
+        
     }
 
     viewTerms() {
-        fetch(this.getEnd).then(res => res.json()).then((data) => {
+        fetch(`${this.getEnd}`).then(res => res.json()).then((data) => {
             console.log(data);
-            this.words = [];
-            for (let i = 0; i < data.length; i++) {
-                const results = {
-                    term: data[i].word,
-                    def: data[i].definition,
-                    links: data[i].links,
-                };
-                this.words.push(results);
-            }
         });
-        this.renderType = 'list';
     }
 
     renderResult() {

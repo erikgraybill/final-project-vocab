@@ -30,19 +30,19 @@ export class TermGlossary extends LitElement {
         this.words = [];
     }
 
-    updated(changedProperties) {
-        changedProperties.forEach((oldValue, propName) => {
-            if(propName === 'glossary' && this[propName]) {
-                this.dispatchEvent(
-                    new CustomEvent('results-changed', {
-                      detail: {
-                        value: this.glossary,
-                      },
-                    })
-                );
-            }
-        });
-    }
+    // updated(changedProperties) {
+    //     changedProperties.forEach((oldValue, propName) => {
+    //         if(propName === 'glossary' && this[propName]) {
+    //             this.dispatchEvent(
+    //                 new CustomEvent('results-changed', {
+    //                   detail: {
+    //                     value: this.glossary,
+    //                   },
+    //                 })
+    //             );
+    //         }
+    //     });
+    // }
 
     // query db for all terms
     async getData() {
@@ -58,17 +58,17 @@ export class TermGlossary extends LitElement {
                 this.glossary.push(results);
             }
         });
-        // html`
-            // <dl>
-            //     ${this.glossary.map(
-            //         item => html`
-            //             <dt>${item.term}</dt>
-            //             <dd>${item.def}</dd>
-            //             <dd>${item.links}</dd>
-            //         `
-            //     )}
-            // </dl>
-            // `;
+        return html`
+            <dl>
+                ${this.glossary.map(
+                    item => html`
+                        <dt>${item.term}</dt>
+                        <dd>${item.def}</dd>
+                        <dd>${item.links}</dd>
+                    `
+                )}
+            </dl>
+        `;
     }
 
     // can be moved to separate file
@@ -80,7 +80,7 @@ export class TermGlossary extends LitElement {
             fetch(`${this.searchEnd}?word=${words[i].value}`).then(res => res.json()).then(data => {
                 console.log(data);
                 if (data) {
-
+                    // separate words and terms, replace found terms
                 }
             });
         };   
