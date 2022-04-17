@@ -43,18 +43,19 @@ export class TermGlossary extends LitElement {
                 };
             this.glossary.push(results);
             }
-            html`
-            <dl>
-                ${this.glossary.map(
-                    item => html`
-                        <dt>${item.term}</dt>
-                        <dd>${item.def}</dd>
-                        <dd>${item.links}</dd>
-                    `
-                )}
-            </dl>
-            `;
         });
+        // html`
+            // <dl>
+            //     ${this.glossary.map(
+            //         item => html`
+            //             <dt>${item.term}</dt>
+            //             <dd>${item.def}</dd>
+            //             <dd>${item.links}</dd>
+            //         `
+            //     )}
+            // </dl>
+            // `;
+        this.render(); 
     }
 
     // can be moved to separate file
