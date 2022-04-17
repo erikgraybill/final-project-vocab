@@ -71,16 +71,15 @@
     </br>
     <h1>Glossary</h1>
     <button id="showall">Show full glossary</button>
-    <term-glossary id="gloss"></term-glossary>
+    <vocab-term-app id="gloss"></vocab-term-app>
     <script type="module">
       import "./src/term-glossary.js";
       import "./src/vocab-term-app.js";
         // load full glossary as dl 
         // change renderType in v-t-app to show list
         document.querySelector('#showall').addEventListener('click', e => {
-          // document.querySelector('vocab-term-app').setRender("gloss");
-          // document.querySelector('vocab-term-app').viewTerms();
-          document.querySelector('#gloss').getData(); 
+          document.querySelector('#gloss').viewTerms();
+          // document.querySelector('#gloss').getData(); 
         });        
     </script>
 </body>

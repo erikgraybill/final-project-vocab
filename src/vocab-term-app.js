@@ -46,10 +46,34 @@ export class VocabTermApp extends LitElement {
 
     }
 
-    viewTerms() {
-        fetch(`${this.getEnd}`).then(res => res.json()).then((data) => {
-            console.log(data);
+    updated(changedProperties) {
+        changedProperties.forEach((oldValue, propName) => {
+            if(propName === 'renderType' && this[propName]) {
+                this.dispatchEvent(
+                    new CustomEvent('results-changed', {
+                      detail: {
+                        value: this.words,
+                      },
+                    })
+                );
+            }
         });
+    }
+
+    viewTerms() {
+        fetch(this.getEnd).then(res => res.json()).then((data) => {
+            console.log(data);
+            this.words = [];
+            for (let i = 0; i < data.length; i++) {
+                const results = {
+                    term: data[i].word,
+                    def: data[i].definition,
+                    links: data[i].links,
+                };
+                this.words.push(results);
+            }
+        });
+        this.renderType = 'list';
     }
 
     renderResult() {
@@ -59,10 +83,10 @@ export class VocabTermApp extends LitElement {
                     item => html`
                     <vocab-term>
                         <details>
-                        <summary>Coffee</summary>
-                        <p slot="information">Bean juice made into warm beverage.</p>
+                        <summary>Coffee ${item.term}</summary>
+                        <p slot="information">Bean juice made into warm beverage. ${item.def}</p>
                         <ul class="links">
-                            <li><a href="https://www.starbucks.com/">Link to starbucks information</a></li>
+                            <li><a href="https://www.starbucks.com/">Link to starbucks information ${item.links}</a></li>
                         </ul>
                         </details>
                     </vocab-term>
@@ -74,8 +98,9 @@ export class VocabTermApp extends LitElement {
                 <dl>
                     ${this.words.map(
                         item => html`
-                        <dt>Word</dt>
-                        <dd>Description</dd>
+                        <dt>${item.term}</dt>
+                        <dd>${item.def}</dd>
+                        <dd>${item.links}</dd>
                     `)}
                 </dl>
             `;
