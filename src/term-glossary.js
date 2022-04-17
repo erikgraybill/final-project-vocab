@@ -35,25 +35,25 @@ export class TermGlossary extends LitElement {
         fetch(this.getEnd).then(res => res.json()).then((data) => {
             console.log(data);
             this.glossary = [];
-            for (let i = 0; i < data.items.length; i++) {
+            for (let i = 0; i < data.length; i++) {
                 const results = {
-                    term: data.items[i].word,
-                    def: data.items[i].def,
-                    links: data.items[i].links,
+                    term: data[i].word,
+                    def: data[i].definition,
+                    links: data[i].links,
                 };
             this.glossary.push(results);
             }
-            // html`
-            // <dl>
-            //     ${this.data.map(
-            //         item => html`
-            //             <dt>${item.term}</dt>
-            //             <dd>${item.def}</dd>
-            //             <dd>${item.links}</dd>
-            //         `
-            //     )}
-            // </dl>
-            // `;
+            html`
+            <dl>
+                ${this.glossary.map(
+                    item => html`
+                        <dt>${item.term}</dt>
+                        <dd>${item.def}</dd>
+                        <dd>${item.links}</dd>
+                    `
+                )}
+            </dl>
+            `;
         });
     }
 
