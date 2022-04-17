@@ -30,20 +30,8 @@ export class TermGlossary extends LitElement {
         this.words = [];
     }
 
-    // updated(changedProperties) {
-    //     changedProperties.forEach((oldValue, propName) => {
-    //         if(propName === 'glossary' && this[propName]) {
-    //             this.dispatchEvent(
-    //                 new CustomEvent('results-changed', {
-    //                   detail: {
-    //                     value: this.glossary,
-    //                   },
-    //                 })
-    //             );
-    //         }
-    //     });
-    // }
 
+    // will be moved to main file
     // query db for all terms
     async getData() {
         fetch(this.getEnd).then(res => res.json()).then((data) => {
@@ -51,27 +39,28 @@ export class TermGlossary extends LitElement {
             this.glossary = [];
             for (let i = 0; i < data.length; i++) {
                 const results = {
-                    term: data[i].word,
-                    def: data[i].definition,
-                    links: data[i].links,
+                    term: data[i].word.value,
+                    def: data[i].definition.value,
+                    links: data[i].links.value,
                 };
                 this.glossary.push(results);
             }
         });
-        return html`
-            <dl>
-                ${this.glossary.map(
-                    item => html`
-                        <dt>${item.term}</dt>
-                        <dd>${item.def}</dd>
-                        <dd>${item.links}</dd>
-                    `
-                )}
-            </dl>
-        `;
+        this.requestUpdate;
+        // return html`
+        //     <dl>
+        //         ${this.glossary.map(
+        //             item => html`
+        //                 <dt>${item.term}</dt>
+        //                 <dd>${item.def}</dd>
+        //                 <dd>${item.links}</dd>
+        //             `
+        //         )}
+        //     </dl>
+        // `;
     }
 
-    // can be moved to separate file
+    // will be moved to main file 
     // gathers data from processing block, sends to db to find matches
     async searchTerms(input) {
         words = input.split(" ");
