@@ -10,55 +10,73 @@ export class TermGlossary extends LitElement {
     static get properties() {
         return {
             term: { type: String },
-            definition: { type: String },
+            def: { type: String },
             links:  {type: Array },
-            endpoint: { type: String },
-            searchEnd: { type: String},
-            glossary: {},
+            getEnd: { type: String },
+            searchEnd: { type: String },
+            glossary: { type: Array },
+            words: { type: Array }, 
         }
     }
 
     constructor() {
         super();
         this.term = '';
-        this.definition = '';
+        this.def = '';
         this.links = [];
-        this.endpoint = '.api/getWords';
-        this.searchEnd = 'api/getWord';
+        this.getEnd = '/api/getWords';
+        this.searchEnd = '/api/getWord';
         this.glossary = [];
+        this.words = [];
     }
 
     // query db for all terms
     async getData() {
-        fetch(this.endpoint).then(resp => {
-            if (resp.ok) {
-              return resp.json();
-            }
-            return false;
-        }).then(data => {
+        fetch(this.getEnd).then(res => res.json()).then((data) => {
+            console.log(data);
             this.glossary = [];
-            for (let i = 0; i < data.collection.items.length; i++) {
+            for (let i = 0; i < data.items.length; i++) {
                 const results = {
-                    term: data.collection.items[i].data[0].word,
-                    definition: data.collection.items[i].data[0].definition,
-                    links: data.collection.items[i].data[0].links,
+                    term: data.items[i].word,
+                    def: data.items[i].def,
+                    links: data.items[i].links,
                 };
-                this.glossary.push(results);
+            this.glossary.push(results);
             }
+            // html`
+            // <dl>
+            //     ${this.data.map(
+            //         item => html`
+            //             <dt>${item.term}</dt>
+            //             <dd>${item.def}</dd>
+            //             <dd>${item.links}</dd>
+            //         `
+            //     )}
+            // </dl>
+            // `;
         });
     }
 
     // can be moved to separate file
     // gathers data from processing block, sends to db to find matches
-    async searchData() {
+    async searchTerms(input) {
+        words = input.split(" ");
         // search db for match
-        fetch(`${this.searchEnd}?word=${term}`).then();
+        for(let i = 0; i < this.words.length; i++) {
+            fetch(`${this.searchEnd}?word=${words[i].value}`).then(res => res.json()).then(data => {
+                console.log(data);
+                if (data) {
+
+                }
+            });
+        };   
+        
         // replace found terms with vocab-term tag
         html` 
-        <vocab-term>
+        <vocab-term >
             <details>
                 <summary>${this.term}</summary>
-                <p slot="information">${this.definition}</p>
+                <p slot="information">${this.def}</p>
                 <ul class="links">
                     <li><a href="${this.links[0]}">Link to more information</a></li>
                 </ul>
@@ -67,22 +85,14 @@ export class TermGlossary extends LitElement {
         `
     }
 
-    // updated(changedProperties) {
-	// 	changedProperties.forEach((old, propName) => {
-	// 		if (propName === '') {
-	// 			this.getData(this[propName]); 
-	// 		}
-	// 	});
-	// }
-
     render() {
         return html`
             <dl>
                 ${this.glossary.map(
                     item => html`
-                        <dt>${this.term}</dt>
-                        <dd>${this.definition}</dd>
-                        <dd>${this.links}</dd>
+                        <dt>${item.term}</dt>
+                        <dd>${item.def}</dd>
+                        <dd>${item.links}</dd>
                     `
                 )}
             </dl>

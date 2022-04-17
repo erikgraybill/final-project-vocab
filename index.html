@@ -41,12 +41,6 @@
     <button id="add">Add Word</button>
   <script type="module">
     import "./src/vocab-term-app.js";
-    // @feedback /addword needs to be an endpoint in the api directory that you use fetch
-    // in order to POST the data at the endpoint. It should then take that endpoint and
-    // save the data in the database
-    // You'll also need buttons for rendering all words in the database
-    // as well as a way of sending a snippet of text to another endpoint to see
-    // which vocab words exist within it
 
     // add word to glossary event
     document.querySelector('#add').addEventListener('click', (e) => {
@@ -61,26 +55,32 @@
     </script>
     </br>
     <h1>Search Vocab</h1>
-    <p>Text area</p>
     <textarea id="input" placeholder="Enter text"></textarea>
-    <input id="input" type="text" placeholder="Enter text"/> 
-    </br>
     <button id="process">Process</button>
-    <script type="module" src="./src/term-glossary.js">
-        import '@lrnwebcomponents/vocab-term/vocab-term.js';
+    <term-glossary id="search"></term-glossary>
+    <script type="module">
+      import "./src/term-glossary.js";
+      import '@lrnwebcomponents/vocab-term/vocab-term.js';
         //search vocab database, replace words with vocab-term
         document.querySelector('#process').addEventListener('click', e => {
-            document.querySelector('#input').searchData();
+            const words = document.querySelector('#input').value;
+            // console.log(words);
+            // document.querySelector('term-glossary').searchTerms(words);
         });
     </script>
     </br>
     <h1>Glossary</h1>
     <button id="showall">Show full glossary</button>
     <term-glossary id="gloss"></term-glossary>
-    <script type="module" src="./src/term-glossary.js">
+    <script type="module">
+      import "./src/term-glossary.js";
+      import "./src/vocab-term-app.js";
         // load full glossary as dl 
+        // change renderType in v-t-app to show list
         document.querySelector('#showall').addEventListener('click', e => {
-            document.querySelector('term-glossary').getData(); 
+          // document.querySelector('vocab-term-app').setRender("gloss");
+          // document.querySelector('vocab-term-app').viewTerms();
+          document.querySelector('term-glossary').getData(); 
         });        
     </script>
 </body>
