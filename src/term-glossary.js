@@ -30,6 +30,20 @@ export class TermGlossary extends LitElement {
         this.words = [];
     }
 
+    updated(changedProperties) {
+        changedProperties.forEach((oldValue, propName) => {
+            if(propName === 'glossary' && this[propName]) {
+                this.dispatchEvent(
+                    new CustomEvent('results-changed', {
+                      detail: {
+                        value: this.glossary,
+                      },
+                    })
+                );
+            }
+        });
+    }
+
     // query db for all terms
     async getData() {
         fetch(this.getEnd).then(res => res.json()).then((data) => {
@@ -41,7 +55,7 @@ export class TermGlossary extends LitElement {
                     def: data[i].definition,
                     links: data[i].links,
                 };
-            this.glossary.push(results);
+                this.glossary.push(results);
             }
         });
         // html`
@@ -55,7 +69,6 @@ export class TermGlossary extends LitElement {
             //     )}
             // </dl>
             // `;
-        this.render(); 
     }
 
     // can be moved to separate file
