@@ -56,6 +56,7 @@
     </br>
     <h1>Search Vocab</h1>
     <textarea id="input" placeholder="Enter text"></textarea>
+    <br>
     <button id="process">Process</button>
     <term-glossary id="search"></term-glossary>
     <script type="module">
@@ -77,8 +78,8 @@
       import "./src/vocab-term-app.js";
         // load full glossary as dl 
         document.querySelector('#showall').addEventListener('click', e => {
-        //   document.querySelector('#gloss').viewTerms();
-          document.querySelector('#gloss').getData(); 
+          document.querySelector('#gloss').viewTerms();
+          // document.querySelector('#gloss').getData(); 
         });        
     </script>
 </body>

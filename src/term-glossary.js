@@ -35,7 +35,7 @@ export class TermGlossary extends LitElement {
     // query db for all terms
     getData() {
         fetch(this.getEnd).then(res => res.json()).then((data) => {
-            this.glossary = [];
+            let glossary = [];
             console.log(data);
             for(const item of data) {
                 // console.log(item);
@@ -46,28 +46,6 @@ export class TermGlossary extends LitElement {
                 };
                 this.glossary.push(vocab);
             }
-            // JSON.parse(data);
-            // words = data.flat();
-            // const obj = data;
-            //     const mapToValues = (object = {}) => {
-            //         // const glossary = [];
-            //         for (let key in object) {
-            //            let obj = object[key];
-            //            this.term = [];
-            //            for (let i = 0; i < obj.length; i++) {
-            //               for (x in obj[i]) {
-            //                  term.push(obj[i][x]);
-            //               }
-            //             }
-            //         glossary.push(term);
-            //     }
-            //     return glossary;
-            // };
-            // console.log(mapToValues(obj));
-            
-            // for (const item of data) {
-            //     
-            // }
             console.log(glossary);
         });
         this.requestUpdate;

@@ -47,13 +47,26 @@ export class VocabTermApp extends LitElement {
     }
 
     searchTerms() {
-        
+
     }
 
     viewTerms() {
-        fetch(`${this.getEnd}`).then(res => res.json()).then((data) => {
+        fetch(this.getEnd).then(res => res.json()).then((data) => {
+            let words = [];
             console.log(data);
+            for(const item of data) {
+                // console.log(item);
+                const vocab = {
+                    term: item["Word"],
+                    def: item["Definition"],
+                    links: item["Links"],
+                };
+                this.words.push(vocab);
+            }
+            console.log(words);
         });
+        this.renderType = 'list';
+        this.requestUpdate;
     }
 
     renderResult() {
@@ -63,10 +76,10 @@ export class VocabTermApp extends LitElement {
                     item => html`
                     <vocab-term>
                         <details>
-                        <summary>Coffee ${item.term}</summary>
-                        <p slot="information">Bean juice made into warm beverage. ${item.def}</p>
+                        <summary>${item.term}</summary>
+                        <p slot="information">${item.def}</p>
                         <ul class="links">
-                            <li><a href="https://www.starbucks.com/">Link to starbucks information ${item.links}</a></li>
+                            <li><a href="${item.links}">${item.links}</a></li>
                         </ul>
                         </details>
                     </vocab-term>
