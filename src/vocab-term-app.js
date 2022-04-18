@@ -36,7 +36,6 @@ export class VocabTermApp extends LitElement {
 
     addTerm(word) {
         var queryString = Object.keys(word).map(key => key + '=' + word[key]).join('&');
-        console.log(queryString);
         fetch(`${this.addEnd}?${queryString}`).then(res => res.json()).then((data) => {
             console.log(data);
         });
@@ -49,6 +48,7 @@ export class VocabTermApp extends LitElement {
     viewTerms() {
         fetch(`${this.getEnd}`).then(res => res.json()).then((data) => {
             console.log(data);
+            return data;
         });
     }
 

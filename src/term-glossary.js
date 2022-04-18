@@ -23,8 +23,8 @@ export class TermGlossary extends LitElement {
         this.term = '';
         this.definition = '';
         this.links = [];
-        this.endpoint = '.api/getWords';
-        this.searchEnd = 'api/getWord';
+        this.endpoint = '/api/getWords';
+        this.searchEnd = '/api/getWord';
         this.glossary = [];
     }
 
@@ -37,11 +37,11 @@ export class TermGlossary extends LitElement {
             return false;
         }).then(data => {
             this.glossary = [];
-            for (let i = 0; i < data.collection.items.length; i++) {
+            for (let i = 0; i < data.length; i++) {
                 const results = {
-                    term: data.collection.items[i].data[0].word,
-                    definition: data.collection.items[i].data[0].definition,
-                    links: data.collection.items[i].data[0].links,
+                    term: data[i].Word,
+                    definition: data[i].Definition,
+                    links: data[i].Links,
                 };
                 this.glossary.push(results);
             }
@@ -77,16 +77,16 @@ export class TermGlossary extends LitElement {
 
     render() {
         return html`
-            <dl>
-                ${this.glossary.map(
-                    item => html`
-                        <dt>${this.term}</dt>
-                        <dd>${this.definition}</dd>
-                        <dd>${this.links}</dd>
-                    `
-                )}
-            </dl>
-        `;
-    }
+            ${this.glossary.map(
+                item => html`
+                    <dl>
+                        <dt>${item.term}</dt>
+                        <dd>${item.definition}</dd>
+                        <dd>${item.links}</dd>
+                    </dl>
+                `
+            )}
+        `}
+    ;
 }
 customElements.define(TermGlossary.tag, TermGlossary);

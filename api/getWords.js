@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   const conn = new PSDB('main');
 
   // queries all from vocab_database db
-  const [dbResult] = await conn.query('select * from VOCAB');
+  const [dbResult] = await conn.query('SELECT * FROM VOCAB');
 
   // cache
   res.setHeader('Cache-Control', 'max-age=0, s-maxage=300');
