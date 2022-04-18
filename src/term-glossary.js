@@ -40,7 +40,7 @@ export class TermGlossary extends LitElement {
             // JSON.parse(data);
             // words = data.flat();
             for (let i = 0; i < data.length; i++) {
-                JSON.parse(data[i]);
+                // JSON.parse(data[i]);
                 const item = {
                     term: data[i].Object[1].value,
                     def: data[i].def,
