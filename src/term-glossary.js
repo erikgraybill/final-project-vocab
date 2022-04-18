@@ -36,12 +36,13 @@ export class TermGlossary extends LitElement {
     async getData() {
         fetch(this.getEnd).then(res => res.json()).then((data) => {
             console.log(data);
+            JSON.parse(data);
             // words = data.flat();
             this.glossary = [];
             for (let i = 0; i < data.length; i++) {
                 const item = {
-                    term: data[i].Object[1].value,
-                    def: data[i].Object[2].value,
+                    term: data[i].term,
+                    def: data[i].def.value,
                     links: data[i].Object[3].value,
                 };
                 this.glossary.push(item);
