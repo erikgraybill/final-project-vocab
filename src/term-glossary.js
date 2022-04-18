@@ -9,7 +9,8 @@ export class TermGlossary extends LitElement {
 
     static get properties() {
         return {
-            term: { type: String },
+            term: { type: Array },
+            word: { type: String },
             def: { type: String },
             links:  {type: Array },
             getEnd: { type: String },
@@ -21,7 +22,8 @@ export class TermGlossary extends LitElement {
 
     constructor() {
         super();
-        this.term = '';
+        this.term = [];
+        this.word = '';
         this.def = '';
         this.links = [];
         this.getEnd = '/api/getWords';
@@ -33,35 +35,46 @@ export class TermGlossary extends LitElement {
 
     // will be moved to main file
     // query db for all terms
-    async getData() {
+    getData() {
         fetch(this.getEnd).then(res => res.json()).then((data) => {
             this.glossary = [];
-            console.log(data);
+            for(const item of data) {
+                console.log(item);
+            }
+            // console.log(data);
             // JSON.parse(data);
             // words = data.flat();
-            for (let i = 0; i < data.length; i++) {
-                // JSON.parse(data[i]);
-                const item = {
-                    term: data[i].Object[1].value,
-                    def: data[i].def,
-                    links: data[i].links.value,
-                };
-                this.glossary.push(item);
-            }
-            console.log(glossary);
+            // const obj = data;
+            //     const mapToValues = (object = {}) => {
+            //         // const glossary = [];
+            //         for (let key in object) {
+            //            let obj = object[key];
+            //            this.term = [];
+            //            for (let i = 0; i < obj.length; i++) {
+            //               for (x in obj[i]) {
+            //                  term.push(obj[i][x]);
+            //               }
+            //             }
+            //         glossary.push(term);
+            //     }
+            //     return glossary;
+            // };
+            // console.log(mapToValues(obj));
+            
+            // for (const item of data) {
+            //     JSON.parse(data[i]);
+            //     let term = [this.word, ];
+            //     const item = {
+            //         term: this.data[word].word,
+            //         def: data(i).def,
+            //         links: data[i].links.value,
+            //     };
+                
+            //     this.glossary.push(term);
+            // }
+            // console.log(glossary);
         });
         this.requestUpdate;
-        // return html`
-        //     <dl>
-        //         ${this.glossary.map(
-        //             item => html`
-        //                 <dt>${item.term}</dt>
-        //                 <dd>${item.def}</dd>
-        //                 <dd>${item.links}</dd>
-        //             `
-        //         )}
-        //     </dl>
-        // `;
     }
 
     // will be moved to main file 
