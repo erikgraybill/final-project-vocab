@@ -77,6 +77,12 @@
     <h1>Glossary</h1>
     <button id="showall">Show full glossary</button>
     <term-glossary id="gloss"></term-glossary>
+    <script type="module" src="./src/vocab-term-app.js">
+      // load full glossary as dl 
+      document.querySelector('#showall').addEventListener('click', e => {
+          document.querySelector('vocab-term-app').viewTerms();
+      });        
+  </script>
     <script type="module" src="./src/term-glossary.js">
         // load full glossary as dl 
         document.querySelector('#showall').addEventListener('click', e => {
