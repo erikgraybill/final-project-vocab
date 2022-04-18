@@ -9,8 +9,7 @@ export class TermGlossary extends LitElement {
 
     static get properties() {
         return {
-            term: { type: Array },
-            word: { type: String },
+            term: { type: String },
             def: { type: String },
             links:  {type: Array },
             getEnd: { type: String },
@@ -22,8 +21,7 @@ export class TermGlossary extends LitElement {
 
     constructor() {
         super();
-        this.term = [];
-        this.word = '';
+        this.term = '';
         this.def = '';
         this.links = [];
         this.getEnd = '/api/getWords';
@@ -38,10 +36,16 @@ export class TermGlossary extends LitElement {
     getData() {
         fetch(this.getEnd).then(res => res.json()).then((data) => {
             this.glossary = [];
+            console.log(data);
             for(const item of data) {
-                console.log(item);
+                // console.log(item);
+                const vocab = {
+                    term: item["Word"],
+                    def: item["Definition"],
+                    links: item["Links"],
+                };
+                this.glossary.push(vocab);
             }
-            // console.log(data);
             // JSON.parse(data);
             // words = data.flat();
             // const obj = data;
@@ -62,17 +66,9 @@ export class TermGlossary extends LitElement {
             // console.log(mapToValues(obj));
             
             // for (const item of data) {
-            //     JSON.parse(data[i]);
-            //     let term = [this.word, ];
-            //     const item = {
-            //         term: this.data[word].word,
-            //         def: data(i).def,
-            //         links: data[i].links.value,
-            //     };
-                
-            //     this.glossary.push(term);
+            //     
             // }
-            // console.log(glossary);
+            console.log(glossary);
         });
         this.requestUpdate;
     }
