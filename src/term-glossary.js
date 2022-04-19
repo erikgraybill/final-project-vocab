@@ -49,34 +49,42 @@ export class TermGlossary extends LitElement {
             console.log(glossary);
         });
         this.requestUpdate;
-    }
+    } 
 
     // will be moved to main file 
     // gathers data from processing block, sends to db to find matches
-    async searchTerms(input) {
+    searchTerms(input) {
         words = input.split(" ");
         // search db for match
-        for(let i = 0; i < this.words.length; i++) {
-            fetch(`${this.searchEnd}?word=${words[i].value}`).then(res => res.json()).then(data => {
-                console.log(data);
-                if (data) {
-                    // separate words and terms, replace found terms
-                }
-            });
-        };   
+        fetch(this.getEnd).then(res => res.json()).then((data) => {
+            let glossary = [];
+            console.log(data);
+            for(const item of data) {
+                // console.log(item);
+                const vocab = {
+                    term: item["Word"],
+                    def: item["Definition"],
+                    links: item["Links"],
+                };
+                this.glossary.push(vocab);
+            }
+            console.log(glossary);
+        }); 
+     
+        const filteredArray = glossary.filter(this.words.includes(item.Word));
         
         // replace found terms with vocab-term tag
-        html` 
-        <vocab-term >
-            <details>
-                <summary>${this.term}</summary>
-                <p slot="information">${this.def}</p>
-                <ul class="links">
-                    <li><a href="${this.links[0]}">Link to more information</a></li>
-                </ul>
-            </details>
-        </vocab-term>
-        `
+        // html` 
+        // <vocab-term >
+        //     <details>
+        //         <summary>${this.term}</summary>
+        //         <p slot="information">${this.def}</p>
+        //         <ul class="links">
+        //             <li><a href="${this.links[0]}">Link to more information</a></li>
+        //         </ul>
+        //     </details>
+        // </vocab-term>
+        // `
     }
 
     render() {
