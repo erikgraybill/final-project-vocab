@@ -80,7 +80,7 @@
     import '@lrnwebcomponents/vocab-term/vocab-term.js';
     //search vocab database, replace words with vocab-term
     document.querySelector('#process').addEventListener('click', e => {
-        const {words} = document.querySelector('#input').value;
+        const words = document.querySelector('#input').value;
         console.log(words);
         document.querySelector('#search').searchTerms(words);
     });
