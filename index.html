@@ -65,8 +65,8 @@
         //search vocab database, replace words with vocab-term
         document.querySelector('#process').addEventListener('click', e => {
             const words = document.querySelector('#input').value;
-            console.log(words);
-            document.querySelector('term-glossary').searchTerms(words);
+            console.log(this.words);
+            document.querySelector('term-glossary').searchTerms(this.words);
         });
     </script>
     </br>

@@ -54,7 +54,7 @@ export class TermGlossary extends LitElement {
     // will be moved to main file 
     // gathers data from processing block, sends to db to find matches
     searchTerms(input) {
-        words = input.split(" ");
+        const words = input.split(" ");
         // search db for match
         fetch(this.getEnd).then(res => res.json()).then((data) => {
             let glossary = [];
@@ -68,10 +68,10 @@ export class TermGlossary extends LitElement {
                 };
                 this.glossary.push(vocab);
             }
-            console.log(glossary);
+            console.log(this.glossary);
         }); 
      
-        const filteredArray = glossary.filter(this.words.includes(item.Word));
+        const filteredArray = this.glossary.filter(this.words.includes(item.Word));
         
         // replace found terms with vocab-term tag
         // html` 
