@@ -66,17 +66,17 @@ export class VocabTermApp extends LitElement {
                 };
                 this.words.push(vocab);
             }
-            console.log(this.words);
         });
         return this.words;
     }
 
-    searchTerms(user) {
+    async searchTerms(user) {
         this.input = user.split(" ");
-        this.glossary = this.getTerms();
+        console.log(this.input); 
+        this.glossary = await this.getTerms();
         this.words = this.glossary.filter(e => this.input.includes(e.Word));
         console.log(this.words);
-        
+        this.renderType = 'term';
         return this.words; 
     }
 
