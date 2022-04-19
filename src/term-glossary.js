@@ -86,7 +86,7 @@ export class TermGlossary extends LitElement {
                     </details>
                 </vocab-term>
             `)}
-        `;
+        ` 
     }
 }
 customElements.define(TermGlossary.tag, TermGlossary);

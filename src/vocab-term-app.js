@@ -53,10 +53,6 @@ export class VocabTermApp extends LitElement {
         });
     }
 
-    searchTerms() {
-
-    }
-
     getTerms() {
         fetch(this.getEnd).then(res => res.json()).then((data) => {
             this.words = [];
@@ -75,22 +71,16 @@ export class VocabTermApp extends LitElement {
         return this.words;
     }
 
+    searchTerms(user) {
+        this.input = user.split(" ");
+        this.glossary = this.getTerms();
+        this.words = this.glossary.filter(e => this.input.includes(e.Word));
+        console.log(this.words);
+        return this.words; 
+    }
+
     viewTerms() {
         this.getTerms();
-        // fetch(this.getEnd).then(res => res.json()).then((data) => {
-        //     this.words = [];
-        //     console.log(data);
-        //     for(const item of data) {
-        //         // console.log(item);
-        //         const vocab = {
-        //             term: item["Word"],
-        //             def: item["Definition"],
-        //             links: item["Links"],
-        //         };
-        //         this.words.push(vocab);
-        //     }
-        //     console.log(this.words);
-        // });
         this.renderType = 'list'
         this.requestUpdate(this.renderType, 'term');
     }
@@ -110,7 +100,7 @@ export class VocabTermApp extends LitElement {
                         </details>
                     </vocab-term>
                 `)}
-            `;
+            `
         }
         else {
             return html`
@@ -122,14 +112,12 @@ export class VocabTermApp extends LitElement {
                         <dd>${item.links}</dd>
                     `)}
                 </dl>
-            `;
+            `
         }
     }
 
     render() {
-        return html`
-            ${this.renderResult()};
-        `;
+        return html`${this.renderResult()}` 
     }
 }
 customElements.define(VocabTermApp.tag, VocabTermApp);
