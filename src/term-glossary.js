@@ -54,10 +54,10 @@ export class TermGlossary extends LitElement {
     // will be moved to main file 
     // gathers data from processing block, sends to db to find matches
     searchTerms(input) {
-        const words = input.split(" ");
+        this.words = input.split(" ");
         // search db for match
         fetch(this.getEnd).then(res => res.json()).then((data) => {
-            let glossary = [];
+            this.glossary = [];
             console.log(data);
             for(const item of data) {
                 // console.log(item);

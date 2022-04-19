@@ -52,7 +52,7 @@ export class VocabTermApp extends LitElement {
 
     viewTerms() {
         fetch(this.getEnd).then(res => res.json()).then((data) => {
-            const glossary = [];
+            this.words = [];
             console.log(data);
             for(const item of data) {
                 // console.log(item);
@@ -61,9 +61,9 @@ export class VocabTermApp extends LitElement {
                     def: item["Definition"],
                     links: item["Links"],
                 };
-                this.glossary.push(vocab);
+                this.words.push(vocab);
             }
-            console.log(this.glossary);
+            console.log(this.words);
         });
         this.requestUpdate(this.renderType, 'term', this.renderType = 'list');
     }
