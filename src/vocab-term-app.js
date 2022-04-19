@@ -53,8 +53,8 @@ export class VocabTermApp extends LitElement {
         });
     }
 
-    getTerms() {
-        fetch(this.getEnd).then(res => res.json()).then((data) => {
+    async getTerms() {
+        await fetch(this.getEnd).then(res => res.json()).then((data) => {
             this.words = [];
             console.log(data);
             for(const item of data) {
@@ -67,14 +67,15 @@ export class VocabTermApp extends LitElement {
                 this.words.push(vocab);
             }
         });
-        return this.words;
+        // return this.words;
     }
 
     async searchTerms(user) {
         this.input = user.split(" ");
         console.log(this.input); 
         this.glossary = await this.getTerms();
-        this.words = this.glossary.filter(e => this.input.includes(e.Word));
+        console.log(this.glossary);
+        this.words = this.glossary.filter(el => this.input.includes(el.Word));
         console.log(this.words);
         this.renderType = 'term';
         return this.words; 
