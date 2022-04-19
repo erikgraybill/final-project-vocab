@@ -13,10 +13,10 @@ export class VocabTermApp extends LitElement {
 
     static get properties() {
 		return {
-			addEnd: { type: String },
+			      addEnd: { type: String },
             getEnd: { type: String },
             removeEnd: { type: String },
-			term: { type: String },
+			      term: { type: String },
             def: { type: String },
             links: { type: Array },
             renderType: { type: String },
@@ -29,7 +29,7 @@ export class VocabTermApp extends LitElement {
         this.addEnd = '/api/addWord';
         this.getEnd = '/api/getWords';
         this.removeEnd = '/api/removeWord';
-		this.term = '';
+		    this.term = '';
         this.def = '';
         this.links = [];
         this.renderType = 'term';
@@ -51,11 +51,26 @@ export class VocabTermApp extends LitElement {
         });
     }
 
+    searchTerms() {
+
+    }
+
     viewTerms() {
-        fetch(`${this.getEnd}`).then(res => res.json()).then((data) => {
+        fetch(this.getEnd).then(res => res.json()).then((data) => {
+            this.words = [];
             console.log(data);
-            return data;
+            for(const item of data) {
+                // console.log(item);
+                const vocab = {
+                    term: item["Word"],
+                    def: item["Definition"],
+                    links: item["Links"],
+                };
+                this.words.push(vocab);
+            }
+            console.log(this.words);
         });
+        this.requestUpdate(this.renderType, 'term', this.renderType = 'list');
     }
 
     renderResult() {
@@ -68,7 +83,7 @@ export class VocabTermApp extends LitElement {
                         <summary>${item.term}</summary>
                         <p slot="information">${item.def}</p>
                         <ul class="links">
-                            <li><a href="https://www.starbucks.com/">${item.links}</a></li>
+                            <li><a href="${item.links}">${item.links}</a></li>
                         </ul>
                         </details>
                     </vocab-term>
@@ -80,8 +95,9 @@ export class VocabTermApp extends LitElement {
                 <dl>
                     ${this.words.map(
                         item => html`
-                        <dt>Word</dt>
-                        <dd>Description</dd>
+                        <dt>${item.term}</dt>
+                        <dd>${item.def}</dd>
+                        <dd>${item.links}</dd>
                     `)}
                 </dl>
             `;
