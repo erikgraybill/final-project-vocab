@@ -45,7 +45,7 @@ export class TermGlossary extends LitElement {
                 };
                 this.glossary.push(vocab);
             }
-            console.log(glossary);
+            console.log(this.glossary);
         });
         this.requestUpdate;
     } 
@@ -68,7 +68,7 @@ export class TermGlossary extends LitElement {
             }
         }); 
         this.words = this.glossary.filter(e => this.input.includes(e.Word));
-        console.log(words);
+        console.log(this.words);
         return this.words;  
     }
 

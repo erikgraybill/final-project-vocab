@@ -57,7 +57,7 @@ export class VocabTermApp extends LitElement {
 
     }
 
-    viewTerms() {
+    getTerms() {
         fetch(this.getEnd).then(res => res.json()).then((data) => {
             this.words = [];
             console.log(data);
@@ -72,6 +72,25 @@ export class VocabTermApp extends LitElement {
             }
             console.log(this.words);
         });
+        return this.words;
+    }
+
+    viewTerms() {
+        this.getTerms();
+        // fetch(this.getEnd).then(res => res.json()).then((data) => {
+        //     this.words = [];
+        //     console.log(data);
+        //     for(const item of data) {
+        //         // console.log(item);
+        //         const vocab = {
+        //             term: item["Word"],
+        //             def: item["Definition"],
+        //             links: item["Links"],
+        //         };
+        //         this.words.push(vocab);
+        //     }
+        //     console.log(this.words);
+        // });
         this.renderType = 'list'
         this.requestUpdate(this.renderType, 'term');
     }
@@ -108,7 +127,6 @@ export class VocabTermApp extends LitElement {
     }
 
     render() {
-        
         return html`
             ${this.renderResult()};
         `;
