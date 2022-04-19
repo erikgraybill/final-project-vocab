@@ -33,12 +33,11 @@ export class TermGlossary extends LitElement {
 
     // will be moved to main file
     // query db for all terms
-    getData() {
-        fetch(this.getEnd).then(res => res.json()).then((data) => {
-            let glossary = [];
+   getData() {
+        fetch(this.getEnd).then(res => res.json()).then(data => {
+            this.glossary = [];
             console.log(data);
             for(const item of data) {
-                // console.log(item);
                 const vocab = {
                     term: item["Word"],
                     def: item["Definition"],
@@ -89,16 +88,16 @@ export class TermGlossary extends LitElement {
 
     render() {
         return html`
-            <dl>
-                ${this.glossary.map(
-                    item => html`
+            ${this.glossary.map(
+                item => html`
+                    <dl>
                         <dt>${item.term}</dt>
                         <dd>${item.def}</dd>
                         <dd>${item.links}</dd>
-                    `
-                )}
-            </dl>
-        `;
+                    </dl>
+                `
+            )}
+       `
     }
 }
 customElements.define(TermGlossary.tag, TermGlossary);

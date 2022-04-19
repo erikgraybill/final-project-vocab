@@ -4,8 +4,10 @@ export default async function handler(req, res) {
   // connects to the database
   const conn = new PSDB('main');
 
-  // queries all from vocab_database db
-  const [dbResult] = await conn.query('SELECT * FROM VOCAB');
+  // queries a single word from vocab db
+  const { word } = req.query;
+
+  const [dbResult] = await conn.execute('DELETE FROM VOCAB WHERE Word=:word',word);
 
   // cache
   res.setHeader('Cache-Control', 'max-age=0, s-maxage=300');

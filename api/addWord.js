@@ -5,7 +5,6 @@ import { PSDB } from 'planetscale-node';
 
 export default async function handler(req, res) {
   // this is making wide sweeping assumptions of the data accuracy
-  console.log(req.query);
   const { word, definition, links } = req.query;
   var term = {
     word: word,
@@ -19,7 +18,6 @@ export default async function handler(req, res) {
     `INSERT INTO VOCAB(Word, Definition, Links) VALUES( :word, :definition, :links)`,
     term
   );
-  console.log(dbResult);
   // take the id that comes back and then apply to the user object
   term.id = dbResult.insertId
   res.json(term);

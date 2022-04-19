@@ -63,7 +63,7 @@
           "getWord"
         ],
         "summary": "Returns a single word",
-        "description": "Returns a single word, description, and links from database",
+        "description": "Returns a single word, description, and links from database.",
         "operationId": "getWord",
         "responses": {
           "200": {
@@ -93,8 +93,66 @@
           "getWords"
         ],
         "summary": "Returns all words",
-        "description": "Returns all words, descriptions, and links from database",
+        "description": "Returns all words, descriptions, and links from database.",
         "operationId": "getWords",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid Request",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/processWords": {
+      "get": {
+        "tags": [
+          "processWords"
+        ],
+        "summary": "Processes words",
+        "description": "Processes HTML block to show vocab entries for any existing words.",
+        "operationId": "processWords",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid Request",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/removeWord": {
+      "delete": {
+        "tags": [
+          "removeWord"
+        ],
+        "summary": "Removes word",
+        "description": "Removes specified word from database.",
+        "operationId": "removeWord",
         "responses": {
           "200": {
             "description": "Successful operation",

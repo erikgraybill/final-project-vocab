@@ -13,9 +13,10 @@ export class VocabTermApp extends LitElement {
 
     static get properties() {
 		return {
-			addEnd: { type: String },
+			      addEnd: { type: String },
             getEnd: { type: String },
-			term: { type: String },
+            removeEnd: { type: String },
+			      term: { type: String },
             def: { type: String },
             links: { type: Array },
             renderType: { type: String },
@@ -27,7 +28,8 @@ export class VocabTermApp extends LitElement {
 		super();
         this.addEnd = '/api/addWord';
         this.getEnd = '/api/getWords';
-		this.term = '';
+        this.removeEnd = '/api/removeWord';
+		    this.term = '';
         this.def = '';
         this.links = [];
         this.renderType = 'term';
@@ -36,14 +38,17 @@ export class VocabTermApp extends LitElement {
 
     addTerm(word) {
         var queryString = Object.keys(word).map(key => key + '=' + word[key]).join('&');
-        console.log(queryString);
+        console.log(queryString.toString);
         fetch(`${this.addEnd}?${queryString}`).then(res => res.json()).then((data) => {
             console.log(data);
         });
     }
 
-    deleteTerm() {
-
+    deleteTerm(word) {
+        var queryString = `word=${word}`;
+        fetch(`${this.removeEnd}?${queryString}`).then(res => res.json()).then((data) => {
+            console.log(data);
+        });
     }
 
     searchTerms() {
