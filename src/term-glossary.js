@@ -68,8 +68,8 @@ export class TermGlossary extends LitElement {
             }
         }); 
         this.words = this.glossary.filter(e => this.input.includes(e.Word));
-        console.log(this.words);
-        return words;  
+        console.log(words);
+        return this.words;  
     }
 
     render() {        

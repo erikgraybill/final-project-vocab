@@ -20,7 +20,8 @@ export class VocabTermApp extends LitElement {
             def: { type: String },
             links: { type: Array },
             renderType: { type: String },
-            words: { type: Array }
+            words: { type: Array },
+            glossary: {},
 		}
 	}
 
@@ -34,6 +35,7 @@ export class VocabTermApp extends LitElement {
         this.links = [];
         this.renderType = 'term';
         this.words = [];
+        this.glossary = [];
 	}
 
     addTerm(word) {
@@ -70,7 +72,8 @@ export class VocabTermApp extends LitElement {
             }
             console.log(this.words);
         });
-        this.requestUpdate(this.renderType, 'term', this.renderType = 'list');
+        this.renderType = 'list'
+        this.requestUpdate(this.renderType, 'term');
     }
 
     renderResult() {
