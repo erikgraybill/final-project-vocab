@@ -83,7 +83,7 @@
     document.querySelector('#process').addEventListener('click', e => {
         const words = document.querySelector('#input').value;
         console.log(words);
-        await document.querySelector('#search').searchTerms(words);
+        document.querySelector('#search').searchTerms(words);
     });
   </script>
   </br>
@@ -97,7 +97,7 @@
     import "./src/vocab-term-app.js";
     // load full glossary as dl 
     document.querySelector('#showall').addEventListener('click', (e) => {
-      await document.querySelector('#gloss').viewTerms(); 
+      document.querySelector('#gloss').viewTerms(); 
     });        
   </script>
   </body>
