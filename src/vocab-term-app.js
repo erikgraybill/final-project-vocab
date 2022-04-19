@@ -15,6 +15,7 @@ export class VocabTermApp extends LitElement {
 		return {
 			addEnd: { type: String },
             getEnd: { type: String },
+            removeEnd: { type: String },
 			term: { type: String },
             def: { type: String },
             links: { type: Array },
@@ -27,6 +28,7 @@ export class VocabTermApp extends LitElement {
 		super();
         this.addEnd = '/api/addWord';
         this.getEnd = '/api/getWords';
+        this.removeEnd = '/api/removeWord';
 		this.term = '';
         this.def = '';
         this.links = [];
@@ -36,13 +38,17 @@ export class VocabTermApp extends LitElement {
 
     addTerm(word) {
         var queryString = Object.keys(word).map(key => key + '=' + word[key]).join('&');
+        console.log(queryString.toString);
         fetch(`${this.addEnd}?${queryString}`).then(res => res.json()).then((data) => {
             console.log(data);
         });
     }
 
-    deleteTerm() {
-
+    deleteTerm(word) {
+        var queryString = `word=${word}`;
+        fetch(`${this.removeEnd}?${queryString}`).then(res => res.json()).then((data) => {
+            console.log(data);
+        });
     }
 
     viewTerms() {
@@ -59,10 +65,10 @@ export class VocabTermApp extends LitElement {
                     item => html`
                     <vocab-term>
                         <details>
-                        <summary>Coffee</summary>
-                        <p slot="information">Bean juice made into warm beverage.</p>
+                        <summary>${item.term}</summary>
+                        <p slot="information">${item.def}</p>
                         <ul class="links">
-                            <li><a href="https://www.starbucks.com/">Link to starbucks information</a></li>
+                            <li><a href="https://www.starbucks.com/">${item.links}</a></li>
                         </ul>
                         </details>
                     </vocab-term>

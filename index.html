@@ -24,10 +24,10 @@
 
 <body>
   <vocab-term-app id="w"></vocab-term-app>
-
+    <!--Adding a new term section-->
     <h1>Add New Word</h1>
     <div>
-        <label for="term">Term:</label>
+        <label for="term">Word:</label>
         <input type="text" id="term" name="term" placeholder="Enter new term"/>
     </div>
     <div>
@@ -41,14 +41,6 @@
     <button id="add">Add Word</button>
   <script type="module">
     import "./src/vocab-term-app.js";
-    // @feedback /addword needs to be an endpoint in the api directory that you use fetch
-    // in order to POST the data at the endpoint. It should then take that endpoint and
-    // save the data in the database
-    // You'll also need buttons for rendering all words in the database
-    // as well as a way of sending a snippet of text to another endpoint to see
-    // which vocab words exist within it
-
-    // add word to glossary event
     document.querySelector('#add').addEventListener('click', (e) => {
       const term = {
         word: document.querySelector('#term').value,
@@ -60,6 +52,24 @@
     });
   </script>
   </br>
+  <!--Remove word section-->
+  <h2>Remove A Word From the Glossary</h2>
+  <div>
+    <label for="removeTerm">Word:</label>
+    <input type="text" id="removeText" name="removeText" placeholder="Enter word to remove"/>
+  </div>
+  <button id="remove">Remove word</button>
+  </br>
+
+  <script type="module">
+    import "./src/vocab-term-app.js";
+    document.querySelector('#remove').addEventListener('click', (e) => {
+      const word = document.querySelector('#removeText').value;
+      document.querySelector('vocab-term-app').deleteTerm(word);
+    });
+  </script>
+
+  <!--Search and Process Section-->
   <h1>Search Vocab</h1>
   <p>Text area</p>
   <textarea id="input" placeholder="Enter text"></textarea>
@@ -74,6 +84,7 @@
     });
   </script>
   </br>
+  <!--Show full glossary section--> 
   <h1>Glossary</h1>
   <button id="showall">Show full glossary</button>
   <term-glossary id="gloss"></term-glossary>
