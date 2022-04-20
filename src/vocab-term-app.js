@@ -21,7 +21,7 @@ export class VocabTermApp extends LitElement {
             links: { type: Array },
             renderType: { type: String },
             words: { type: Array },
-            // glossary: {},
+            glossary: {},
 		}
 	}
 
@@ -35,7 +35,7 @@ export class VocabTermApp extends LitElement {
         this.links = [];
         this.renderType = 'term';
         this.words = [];
-        // this.glossary = [];
+        this.glossary = [];
 	}
 
     addTerm(word) {
@@ -66,13 +66,13 @@ export class VocabTermApp extends LitElement {
                 };
                 this.words.push(vocab);
             }
-            return this.words;
         });
+        return this.words;
     }
 
-    async searchTerms(user) {
+    searchTerms(user) {
         this.input = user.split(" ");
-        const glossary = await this.getTerms();
+        this.glossary = this.getTerms();
         console.log(glossary); 
         this.words = glossary.filter(el => this.input.includes(el.Word));
         console.log(this.words);
