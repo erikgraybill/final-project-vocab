@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "IST 402 Vocab Microfrontend",
-    "description": "This documentation is for our vocab term microfrontend. A word and it's description, as well as any related links, can be added to a database. A word can be searched for, or all words in the database can be returned.",
+    "description": "This documentation is for our vocab term microfrontend. A word and it's description, as well as any related links, can be added or to or deleted from a database. A single word can be searched for, or all words in the database can be returned.",
     "contact": {
       "email": "erg5272@psu.edu"
     },
@@ -18,7 +18,7 @@
   },
   "servers": [
     {
-      "url": "final-project-vocab-m4zlbhkni-zjohnson10.vercel.app/src"
+      "url": "final-project-vocab-ird00vke3-zjohnson10.vercel.app"
     }
   ],
   "paths": {
@@ -31,7 +31,7 @@
         "description": "Add a single word, description, and links to database",
         "operationId": "addWord",
         "requestBody": {
-          "description": "Word object that needs to be added to the database",
+          "description": "Word object to be added to the database",
           "content": {
             "*/*": {
               "schema": {
@@ -53,8 +53,7 @@
             "description": "Invalid input",
             "content": {}
           }
-        },
-        "x-codegen-request-body-name": "body"
+        }
       }
     },
     "/getWord": {
@@ -73,8 +72,7 @@
                 "schema": {
                   "type": "object",
                   "additionalProperties": {
-                    "type": "integer",
-                    "format": "int32"
+                    "type": "string"
                   }
                 }
               }
@@ -103,7 +101,7 @@
                 "schema": {
                   "type": "object",
                   "additionalProperties": {
-                    "type": "integer"
+                    "type": "string"
                   }
                 }
               }
@@ -132,7 +130,7 @@
                 "schema": {
                   "type": "object",
                   "additionalProperties": {
-                    "type": "integer"
+                    "type": "string"
                   }
                 }
               }
@@ -161,7 +159,7 @@
                 "schema": {
                   "type": "object",
                   "additionalProperties": {
-                    "type": "integer"
+                    "type": "string"
                   }
                 }
               }
