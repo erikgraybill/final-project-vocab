@@ -74,7 +74,7 @@ export class VocabTermApp extends LitElement {
         this.input = user.split(" ");
         this.glossary = this.getTerms().value;
         console.log(this.glossary); 
-        this.words = glossary.filter(el => this.input.includes(el.Word));
+        this.words = this.glossary.filter(el => this.input.includes(el.Word));
         console.log(this.words);
         this.renderType = 'term';
         return this.words; 
