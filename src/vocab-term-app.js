@@ -70,11 +70,11 @@ export class VocabTermApp extends LitElement {
         return this.words;
     }
 
-    searchTerms(user) {
+    async searchTerms(user) {
         this.input = user.split(" ");
-        this.glossary = await this.getTerms().value;
-        console.log(this.glossary); 
-        this.words = this.glossary.filter(el => this.input.includes(el.Word));
+        const glossary = this.getTerms().value;
+        console.log(glossary); 
+        this.words = glossary.filter(el => this.input.includes(el.Word));
         console.log(this.words);
         this.renderType = 'term';
         return this.words; 
