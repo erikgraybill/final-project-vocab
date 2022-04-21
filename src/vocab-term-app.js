@@ -13,12 +13,13 @@ export class VocabTermApp extends LitElement {
 
     static get properties() {
 		return {
-			      addEnd: { type: String },
+			addEnd: { type: String },
             getEnd: { type: String },
             removeEnd: { type: String },
-			      term: { type: String },
+			term: { type: String },
             def: { type: String },
             links: { type: Array },
+            wordId: {},
             renderType: { type: String },
             words: { type: Array },
             glossary: {},
@@ -30,9 +31,10 @@ export class VocabTermApp extends LitElement {
         this.addEnd = '/api/addWord';
         this.getEnd = '/api/getWords';
         this.removeEnd = '/api/removeWord';
-		    this.term = '';
+	    this.term = '';
         this.def = '';
         this.links = [];
+        this.wordId = 0;
         this.renderType = 'term';
         this.words = [];
         this.glossary = [];
@@ -46,8 +48,9 @@ export class VocabTermApp extends LitElement {
         });
     }
 
-    deleteTerm(word) {
-        var queryString = `word=${word}`;
+    deleteTerm(e) {
+        const wordId = e.target.getAttribute('data-id');
+        var queryString = `wordId=${wordId}`;
         fetch(`${this.removeEnd}?${queryString}`).then(res => res.json()).then((data) => {
             console.log(data);
         });
@@ -63,6 +66,7 @@ export class VocabTermApp extends LitElement {
                     term: item["Word"],
                     def: item["Definition"],
                     links: item["Links"],
+                    wordId: item["WordId"],
                 };
                 this.words.push(vocab);
             }
@@ -115,6 +119,11 @@ export class VocabTermApp extends LitElement {
                         <dt>${item.term}</dt>
                         <dd>${item.def}</dd>
                         <dd>${item.links}</dd>
+                        <script type="module">
+                            import "./src/vocab-term-app.js";
+                        </script>
+                        <button @click="${this.deleteTerm}" data-id="${item.wordId}">Delete this word</button>
+                        </br>
                     `)}
                 </dl>
             `

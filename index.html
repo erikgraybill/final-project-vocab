@@ -52,23 +52,6 @@
     });
   </script>
   </br>
-  
-  <!--Remove word section-->
-  <h2>Remove A Word From the Glossary</h2>
-  <div>
-    <label for="removeTerm">Word:</label>
-    <input type="text" id="removeText" name="removeText" placeholder="Enter word to remove"/>
-  </div>
-  <button id="remove">Remove word</button>
-  </br>
-
-  <script type="module">
-    import "./src/vocab-term-app.js";
-    document.querySelector('#remove').addEventListener('click', (e) => {
-      const word = document.querySelector('#removeText').value;
-      document.querySelector('vocab-term-app').deleteTerm(word);
-    });
-  </script>
 
   <!--Search and Process Section-->
   <h1>Search Vocab</h1>

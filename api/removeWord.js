@@ -5,10 +5,10 @@ export default async function handler(req, res) {
   const conn = new PSDB('main', {namedPlaceholders: true});
 
   // queries a single word from vocab db
-  const { word } = req.query;
+  const { wordId } = req.query;
 
-  const [dbResult] = await conn.execute('DELETE FROM VOCAB WHERE Word=:word',{
-    word: word
+  const [dbResult] = await conn.execute('DELETE FROM VOCAB WHERE WordId=:wordId',{
+    wordId: wordId
   });
 
   // cache
