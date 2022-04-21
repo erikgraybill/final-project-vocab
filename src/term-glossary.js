@@ -45,21 +45,20 @@ export class TermGlossary extends LitElement {
                 };
                 this.glossary.push(vocab);
             }
-            console.log(glossary);
+            console.log(this.glossary);
         });
         this.requestUpdate;
     } 
 
     // will be moved to main file 
     // gathers data from processing block, sends to db to find matches
-    searchTerms(input) {
-        this.words = input.split(" ");
+    searchTerms(user) {
+        this.input = user.split(" ");
         // search db for match
         fetch(this.getEnd).then(res => res.json()).then((data) => {
             this.glossary = [];
             console.log(data);
-            for(const item of data) {
-                // console.log(item);
+            for(const item of data) { 
                 const vocab = {
                     term: item["Word"],
                     def: item["Definition"],
@@ -67,37 +66,27 @@ export class TermGlossary extends LitElement {
                 };
                 this.glossary.push(vocab);
             }
-            console.log(this.glossary);
         }); 
-     
-        const filteredArray = this.glossary.filter(this.words.includes(item.Word));
-        
-        // replace found terms with vocab-term tag
-        // html` 
-        // <vocab-term >
-        //     <details>
-        //         <summary>${this.term}</summary>
-        //         <p slot="information">${this.def}</p>
-        //         <ul class="links">
-        //             <li><a href="${this.links[0]}">Link to more information</a></li>
-        //         </ul>
-        //     </details>
-        // </vocab-term>
-        // `
+        this.words = this.glossary.filter(e => this.input.includes(e.Word));
+        console.log(this.words);
+        return this.words;  
     }
 
-    render() {
+    render() {        
         return html`
-            ${this.glossary.map(
+            ${this.words.map(
                 item => html`
-                    <dl>
-                        <dt>${item.term}</dt>
-                        <dd>${item.def}</dd>
-                        <dd>${item.links}</dd>
-                    </dl>
-                `
-            )}
-       `
+                <vocab-term>
+                    <details>
+                    <summary>${item.term}</summary>
+                    <p slot="information">${item.def}</p>
+                    <ul class="links">
+                        <li><a href="${item.links}">${item.links}</a></li>
+                    </ul>
+                    </details>
+                </vocab-term>
+            `)}
+        ` 
     }
 }
 customElements.define(TermGlossary.tag, TermGlossary);

@@ -20,7 +20,8 @@ export class VocabTermApp extends LitElement {
             def: { type: String },
             links: { type: Array },
             renderType: { type: String },
-            words: { type: Array }
+            words: { type: Array },
+            glossary: {},
 		}
 	}
 
@@ -34,6 +35,7 @@ export class VocabTermApp extends LitElement {
         this.links = [];
         this.renderType = 'term';
         this.words = [];
+        this.glossary = [];
 	}
 
     addTerm(word) {
@@ -51,12 +53,8 @@ export class VocabTermApp extends LitElement {
         });
     }
 
-    searchTerms() {
-
-    }
-
-    viewTerms() {
-        fetch(this.getEnd).then(res => res.json()).then((data) => {
+    async getTerms() {
+        await fetch(this.getEnd).then(res => res.json()).then((data) => {
             this.words = [];
             console.log(data);
             for(const item of data) {
@@ -68,9 +66,24 @@ export class VocabTermApp extends LitElement {
                 };
                 this.words.push(vocab);
             }
-            console.log(this.words);
         });
-        this.requestUpdate(this.renderType, 'term', this.renderType = 'list');
+        return this.words;
+    }
+
+    async searchTerms(user) {
+        this.input = user.split(" ");
+        const glossary = this.getTerms().value;
+        console.log(glossary); 
+        this.words = glossary.filter(el => this.input.includes(el.Word));
+        console.log(this.words);
+        this.renderType = 'term';
+        return this.words; 
+    }
+
+    viewTerms() {
+        this.getTerms();
+        this.renderType = 'list'
+        this.requestUpdate(this.renderType, 'term');
     }
 
     renderResult() {
@@ -88,7 +101,7 @@ export class VocabTermApp extends LitElement {
                         </details>
                     </vocab-term>
                 `)}
-            `;
+            `
         }
         else {
             return html`
@@ -100,15 +113,12 @@ export class VocabTermApp extends LitElement {
                         <dd>${item.links}</dd>
                     `)}
                 </dl>
-            `;
+            `
         }
     }
 
     render() {
-        
-        return html`
-            ${this.renderResult()};
-        `;
+        return html`${this.renderResult()}` 
     }
 }
 customElements.define(VocabTermApp.tag, VocabTermApp);
