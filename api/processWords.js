@@ -11,8 +11,9 @@ export default async function handler(req, res) {
         words = data.filter(el => wordArray.includes(el.Word));
         // for(const item of data) {
         // }
+
     });
 
     console.log(words);
-    res.json(words); 
+    res.json(JSON.stringify(words)); 
 }
