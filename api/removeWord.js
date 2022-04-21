@@ -2,12 +2,14 @@ import { PSDB } from 'planetscale-node';
 
 export default async function handler(req, res) {
   // connects to the database
-  const conn = new PSDB('main');
+  const conn = new PSDB('main', {namedPlaceholders: true});
 
   // queries a single word from vocab db
   const { word } = req.query;
 
-  const [dbResult] = await conn.execute('DELETE FROM VOCAB WHERE Word=:word',word);
+  const [dbResult] = await conn.execute('DELETE FROM VOCAB WHERE Word=:word',{
+    word: word
+  });
 
   // cache
   res.setHeader('Cache-Control', 'max-age=0, s-maxage=300');

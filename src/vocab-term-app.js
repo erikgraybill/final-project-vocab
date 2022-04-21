@@ -58,6 +58,10 @@ export class VocabTermApp extends LitElement {
         });
     }
 
+    processTerms() {
+        
+    }
+
     renderResult() {
         if (this.renderType === 'term') {
             return html`
