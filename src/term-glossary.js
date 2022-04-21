@@ -10,83 +10,83 @@ export class TermGlossary extends LitElement {
     static get properties() {
         return {
             term: { type: String },
-            definition: { type: String },
+            def: { type: String },
             links:  {type: Array },
-            endpoint: { type: String },
-            searchEnd: { type: String},
-            glossary: {},
+            getEnd: { type: String },
+            searchEnd: { type: String },
+            glossary: { type: Array },
+            words: { type: Array }, 
         }
     }
 
     constructor() {
         super();
         this.term = '';
-        this.definition = '';
+        this.def = '';
         this.links = [];
-        this.endpoint = '/api/getWords';
+        this.getEnd = '/api/getWords';
         this.searchEnd = '/api/getWord';
         this.glossary = [];
+        this.words = [];
     }
 
+
+    // will be moved to main file
     // query db for all terms
-    async getData() {
-        fetch(this.endpoint).then(resp => {
-            if (resp.ok) {
-              return resp.json();
-            }
-            return false;
-        }).then(data => {
+   getData() {
+        fetch(this.getEnd).then(res => res.json()).then(data => {
             this.glossary = [];
-            for (let i = 0; i < data.length; i++) {
-                const results = {
-                    term: data[i].Word,
-                    definition: data[i].Definition,
-                    links: data[i].Links,
+            console.log(data);
+            for(const item of data) {
+                const vocab = {
+                    term: item["Word"],
+                    def: item["Definition"],
+                    links: item["Links"],
                 };
-                this.glossary.push(results);
+                this.glossary.push(vocab);
             }
+            console.log(this.glossary);
         });
-    }
+        this.requestUpdate;
+    } 
 
-    // can be moved to separate file
+    // will be moved to main file 
     // gathers data from processing block, sends to db to find matches
-    async searchData() {
+    searchTerms(user) {
+        this.input = user.split(" ");
         // search db for match
-        fetch(`${this.searchEnd}?word=${term}`).then();
-        // replace found terms with vocab-term tag
-        html` 
-        <vocab-term>
-            <details>
-                <summary>${this.term}</summary>
-                <p slot="information">${this.definition}</p>
-                <ul class="links">
-                    <li><a href="${this.links[0]}">Link to more information</a></li>
-                </ul>
-            </details>
-        </vocab-term>
-        `
+        fetch(this.getEnd).then(res => res.json()).then((data) => {
+            this.glossary = [];
+            console.log(data);
+            for(const item of data) { 
+                const vocab = {
+                    term: item["Word"],
+                    def: item["Definition"],
+                    links: item["Links"],
+                };
+                this.glossary.push(vocab);
+            }
+        }); 
+        this.words = this.glossary.filter(e => this.input.includes(e.Word));
+        console.log(this.words);
+        return this.words;  
     }
 
-    // updated(changedProperties) {
-	// 	changedProperties.forEach((old, propName) => {
-	// 		if (propName === '') {
-	// 			this.getData(this[propName]); 
-	// 		}
-	// 	});
-	// }
-
-    render() {
+    render() {        
         return html`
-            ${this.glossary.map(
+            ${this.words.map(
                 item => html`
-                    <dl>
-                        <dt>${item.term}</dt>
-                        <dd>${item.definition}</dd>
-                        <dd>${item.links}</dd>
-                    </dl>
-                `
-            )}
-        `}
-    ;
+                <vocab-term>
+                    <details>
+                    <summary>${item.term}</summary>
+                    <p slot="information">${item.def}</p>
+                    <ul class="links">
+                        <li><a href="${item.links}">${item.links}</a></li>
+                    </ul>
+                    </details>
+                </vocab-term>
+            `)}
+        ` 
+    }
 }
 customElements.define(TermGlossary.tag, TermGlossary);
