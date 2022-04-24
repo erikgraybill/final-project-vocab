@@ -55,47 +55,14 @@ export class VocabTermApp extends LitElement {
         });
     }
 
-    async getTerms() {
-        // await fetch(this.getEnd).then(res => res.json()).then((data) => {
-        //     this.words = [];
-        //     console.log(data);
-        //     for(const item of data) {
-        //         // console.log(item);
-        //         const vocab = {
-        //             term: item["Word"],
-        //             def: item["Definition"],
-        //             links: item["Links"],
-        //         };
-        //         this.words.push(vocab);
-        //     }
-        // });
-        // return this.words;
-    }
-
-    async searchTerms(user) {
-        const search = user.split(" ");
+    async searchTerms(input) {
+        const search = input.split(" ");
         console.log(search);
         this.words = [];
-        // var queryString = `paragraph=${user}`;
-        // await fetch(`${this.searchEnd}?${queryString}`).then(res => res.json()).then((data) => {
-        //     this.glossary = [];
-        //     console.log(data);
-        //     for(const item of data) {
-        //         // console.log(item);
-        //         const vocab = {
-        //             term: item["Word"],
-        //             def: item["Definition"], 
-        //             links: item["Links"],
-        //         };
-        //         this.glossary.push(vocab);
-        //     }
-        // });
 
-        await fetch(this.getEnd).then(res => res.json()).then((data) => {
+        fetch(this.getEnd).then(res => res.json()).then((data) => {
             this.glossary = [];
-            // console.log(data);
             for(const item of data) {
-                console.log(item);
                 if(search.includes(item.Word)) {
                     const vocab = {
                         term: item["Word"],
@@ -106,32 +73,8 @@ export class VocabTermApp extends LitElement {
                 }
             }
         });        
-        // const glossary = this.getTerms().value;
-        // console.log(this.glossary); 
-        // for(const word of this.glossary) {
-        //     console.log(word);
-        //     if(search.includes(word.term)) {
-        //         this.words.push(word);
-        //     }
-        // }
-        // this.words = this.glossary.filter(el => search.includes(el.Word));
         console.log(this.words);
 
-        // for(const word of search) {
-        //     console.log(word);
-        //     var queryString = `word=${word}`;
-        //     fetch(`${this.searchEnd}?${queryString}`).then(res => res.json()).then((data) => {
-        //         console.log(data);
-        //         for(const item of data) {
-        //             const vocab = {
-        //                 term: item["Word"],
-        //                 def: item["Definition"],
-        //                 links: item["Links"],
-        //             };
-        //             this.words.push(vocab);
-        //         }
-        //     })
-        // }
         this.renderType = 'term';
         return this.words; 
     }
@@ -141,7 +84,6 @@ export class VocabTermApp extends LitElement {
             this.words = [];
             console.log(data);
             for(const item of data) {
-                // console.log(item);
                 const vocab = {
                     term: item["Word"],
                     def: item["Definition"],
