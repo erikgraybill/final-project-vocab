@@ -57,7 +57,6 @@ export class VocabTermApp extends LitElement {
 
     async searchTerms(input) {
         const search = input.split(" ");
-        console.log(search);
         this.words = [];
 
         fetch(this.getEnd).then(res => res.json()).then((data) => {
@@ -76,8 +75,8 @@ export class VocabTermApp extends LitElement {
         console.log(this.words);
 
         this.renderType = 'term';
-        this.requestUpdate(this.words);
-        // return this.words; 
+        this.requestUpdate(this.words, []);
+        return this.words; 
     }
 
     viewTerms() {
