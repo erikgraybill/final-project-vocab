@@ -96,7 +96,7 @@ export class VocabTermApp extends LitElement {
         this.words = [];
         for(const word in search) {
             console.log(word);
-            var queryString = `word=${word.value}`;
+            var queryString = `word=${word}`;
             fetch(`${this.searchEnd}?${queryString}`).then(res => res.json()).then((data) => {
                 console.log(data);
                 for(const item of data) {
