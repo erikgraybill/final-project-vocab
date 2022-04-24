@@ -73,6 +73,8 @@ export class VocabTermApp extends LitElement {
     }
 
     async searchTerms(user) {
+        const search = user.split(" ");
+        console.log(search);
         // var queryString = `paragraph=${user}`;
         // await fetch(`${this.searchEnd}?${queryString}`).then(res => res.json()).then((data) => {
         //     this.glossary = [];
@@ -87,28 +89,41 @@ export class VocabTermApp extends LitElement {
         //         this.glossary.push(vocab);
         //     }
         // });
-        const search = user.split(" ");
-        console.log(search);
-        // const glossary = this.getTerms().value;
-        // console.log(glossary); 
-        // this.words = glossary.filter(el => this.search.includes(el.Word));
-        // console.log(this.words);
+
         this.words = [];
-        for(const word in search) {
-            console.log(search[word]);
-            var queryString = `word=${search[word]}`;
-            fetch(`${this.searchEnd}?${queryString}`).then(res => res.json()).then((data) => {
-                console.log(data);
-                for(const item of data) {
-                    const vocab = {
-                        term: item["Word"],
-                        def: item["Definition"],
-                        links: item["Links"],
-                    };
-                    this.words.push(vocab);
-                }
-            })
-        }
+        fetch(this.getEnd).then(res => res.json()).then((data) => {
+            this.glossary = [];
+            console.log(data);
+            for(const item of data) {
+                // console.log(item);
+                const vocab = {
+                    term: item["Word"],
+                    def: item["Definition"],
+                    links: item["Links"],
+                };
+                this.glossary.push(vocab);
+            }
+        });        
+        // const glossary = this.getTerms().value;
+        console.log(glossary); 
+        this.words = glossary.filter(el => this.search.includes(el.Word));
+        console.log(this.words);
+
+        // for(const word in search) {
+        //     console.log(search[word]);
+        //     var queryString = `word=${search[word]}`;
+        //     fetch(`${this.searchEnd}?${queryString}`).then(res => res.json()).then((data) => {
+        //         console.log(data);
+        //         for(const item of data) {
+        //             const vocab = {
+        //                 term: item["Word"],
+        //                 def: item["Definition"],
+        //                 links: item["Links"],
+        //             };
+        //             this.words.push(vocab);
+        //         }
+        //     })
+        // }
         this.renderType = 'term';
         return this.words; 
     }
