@@ -75,7 +75,7 @@ export class VocabTermApp extends LitElement {
     async searchTerms(user) {
         // var queryString = `paragraph=${user}`;
         // await fetch(`${this.searchEnd}?${queryString}`).then(res => res.json()).then((data) => {
-        //     this.words = [];
+        //     this.glossary = [];
         //     console.log(data);
         //     for(const item of data) {
         //         // console.log(item);
@@ -84,17 +84,17 @@ export class VocabTermApp extends LitElement {
         //             def: item["Definition"],
         //             links: item["Links"],
         //         };
-        //         this.words.push(vocab);
+        //         this.glossary.push(vocab);
         //     }
         // });
-        this.input = user.split(" ");
+        this.search = user.split(" ");
         // const glossary = this.getTerms().value;
         // console.log(glossary); 
         // this.words = glossary.filter(el => this.input.includes(el.Word));
         // console.log(this.words);
-        for(const word in input) {
-            var queryString = `word=${word}`;
-            fetch(`${this.searchEnd}?${queryString}`).then(res => res.json()).then((data) => {
+        for(const word in search) {
+            var queryString = JSON.stringify(word);
+            fetch(`${this.searchEnd}?word=${queryString}`).then(res => res.json()).then((data) => {
                 this.words = [];
                 console.log(data);
                 for(const item of data) {
