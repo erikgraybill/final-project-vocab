@@ -75,6 +75,7 @@ export class VocabTermApp extends LitElement {
     async searchTerms(user) {
         const search = user.split(" ");
         console.log(search);
+        this.words = [];
         // var queryString = `paragraph=${user}`;
         // await fetch(`${this.searchEnd}?${queryString}`).then(res => res.json()).then((data) => {
         //     this.glossary = [];
@@ -90,10 +91,9 @@ export class VocabTermApp extends LitElement {
         //     }
         // });
 
-        this.words = [];
         await fetch(this.getEnd).then(res => res.json()).then((data) => {
             this.glossary = [];
-            console.log(data);
+            // console.log(data);
             for(const item of data) {
                 // console.log(item);
                 const vocab = {
@@ -105,13 +105,18 @@ export class VocabTermApp extends LitElement {
             }
         });        
         // const glossary = this.getTerms().value;
-        console.log(this.glossary); 
-        this.words = this.glossary.filter(el => search.includes(el.Word));
+        // console.log(this.glossary); 
+        for(const word of this.glossary) {
+            if(search.includes(word.Word)) {
+                this.words.push(word);
+            }
+        }
+        // this.words = this.glossary.filter(el => search.includes(el.Word));
         console.log(this.words);
 
-        // for(const word in search) {
-        //     console.log(search[word]);
-        //     var queryString = `word=${search[word]}`;
+        // for(const word of search) {
+        //     console.log(word);
+        //     var queryString = `word=${word}`;
         //     fetch(`${this.searchEnd}?${queryString}`).then(res => res.json()).then((data) => {
         //         console.log(data);
         //         for(const item of data) {
