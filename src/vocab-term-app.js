@@ -31,7 +31,7 @@ export class VocabTermApp extends LitElement {
         this.addEnd = '/api/addWord';
         this.getEnd = '/api/getWords';
         this.removeEnd = '/api/removeWord';
-        this.searchEnd = '/api/processWords';
+        this.searchEnd = '/api/getWord'; // '/api/processWords';
 		this.term = '';
         this.def = '';
         this.links = [];
@@ -73,25 +73,40 @@ export class VocabTermApp extends LitElement {
     }
 
     async searchTerms(user) {
-        var queryString = `paragraph=${user}`;
-        await fetch(`${this.searchEnd}?${queryString}`).then(res => res.json()).then((data) => {
-            this.words = [];
-            console.log(data);
-            for(const item of data) {
-                // console.log(item);
-                const vocab = {
-                    term: item["Word"],
-                    def: item["Definition"],
-                    links: item["Links"],
-                };
-                this.words.push(vocab);
-            }
-        });
-        // this.input = user.split(" ");
+        // var queryString = `paragraph=${user}`;
+        // await fetch(`${this.searchEnd}?${queryString}`).then(res => res.json()).then((data) => {
+        //     this.words = [];
+        //     console.log(data);
+        //     for(const item of data) {
+        //         // console.log(item);
+        //         const vocab = {
+        //             term: item["Word"],
+        //             def: item["Definition"],
+        //             links: item["Links"],
+        //         };
+        //         this.words.push(vocab);
+        //     }
+        // });
+        this.input = user.split(" ");
         // const glossary = this.getTerms().value;
         // console.log(glossary); 
         // this.words = glossary.filter(el => this.input.includes(el.Word));
         // console.log(this.words);
+        for(word in input) {
+            var queryString = word.value;
+            fetch(`${this.searchEnd}?${queryString}`).then(res => res.json()).then((data) => {
+                this.words = [];
+                console.log(data);
+                for(const item of data) {
+                    const vocab = {
+                        term: item["Word"],
+                        def: item["Definition"],
+                        links: item["Links"],
+                    };
+                    this.words.push(vocab);
+                }
+            })
+        }
         this.renderType = 'term';
         return this.words; 
     }
