@@ -87,14 +87,14 @@ export class VocabTermApp extends LitElement {
         //         this.glossary.push(vocab);
         //     }
         // });
-        this.search = user.split(" ");
+        const search = user.split(" ");
         // const glossary = this.getTerms().value;
         // console.log(glossary); 
-        // this.words = glossary.filter(el => this.input.includes(el.Word));
+        // this.words = glossary.filter(el => this.search.includes(el.Word));
         // console.log(this.words);
         for(const word in search) {
-            var queryString = JSON.stringify(word);
-            fetch(`${this.searchEnd}?word=${queryString}`).then(res => res.json()).then((data) => {
+            var queryString = `word=${word}`;
+            fetch(`${this.searchEnd}?${queryString}`).then(res => res.json()).then((data) => {
                 this.words = [];
                 console.log(data);
                 for(const item of data) {
