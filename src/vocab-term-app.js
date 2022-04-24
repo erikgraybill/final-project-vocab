@@ -107,6 +107,7 @@ export class VocabTermApp extends LitElement {
         // const glossary = this.getTerms().value;
         // console.log(this.glossary); 
         for(const word of this.glossary) {
+            console.log(word);
             if(search.includes(word.Word)) {
                 this.words.push(word);
             }
