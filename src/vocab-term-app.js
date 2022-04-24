@@ -91,7 +91,7 @@ export class VocabTermApp extends LitElement {
         // });
 
         this.words = [];
-        fetch(this.getEnd).then(res => res.json()).then((data) => {
+        await fetch(this.getEnd).then(res => res.json()).then((data) => {
             this.glossary = [];
             console.log(data);
             for(const item of data) {
@@ -105,8 +105,8 @@ export class VocabTermApp extends LitElement {
             }
         });        
         // const glossary = this.getTerms().value;
-        console.log(glossary); 
-        this.words = glossary.filter(el => this.search.includes(el.Word));
+        console.log(this.glossary); 
+        this.words = this.glossary.filter(el => search.includes(el.Word));
         console.log(this.words);
 
         // for(const word in search) {
