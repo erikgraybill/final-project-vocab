@@ -77,7 +77,9 @@ export class VocabTermApp extends LitElement {
         this.renderType = 'term';
         // this.update(); 
         // this.requestUpdate(this.words);
-        this.requestUpdate(this.renderType, 'term');    }
+        this.requestUpdate(this.renderType, 'list');            
+        return this.words;
+    }
 
     viewTerms() {
         fetch(this.getEnd).then(res => res.json()).then((data) => {
