@@ -95,23 +95,25 @@ export class VocabTermApp extends LitElement {
             this.glossary = [];
             // console.log(data);
             for(const item of data) {
-                // console.log(item);
-                const vocab = {
-                    term: item["Word"],
-                    def: item["Definition"],
-                    links: item["Links"],
-                };
-                this.glossary.push(vocab);
+                console.log(item);
+                if(search.includes(item.Word)) {
+                    const vocab = {
+                        term: item["Word"],
+                        def: item["Definition"],
+                        links: item["Links"],
+                    };
+                    this.words.push(vocab);
+                }
             }
         });        
         // const glossary = this.getTerms().value;
         // console.log(this.glossary); 
-        for(const word of this.glossary) {
-            console.log(word);
-            if(search.includes(word.Word)) {
-                this.words.push(word);
-            }
-        }
+        // for(const word of this.glossary) {
+        //     console.log(word);
+        //     if(search.includes(word.term)) {
+        //         this.words.push(word);
+        //     }
+        // }
         // this.words = this.glossary.filter(el => search.includes(el.Word));
         console.log(this.words);
 
