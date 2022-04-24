@@ -92,10 +92,10 @@ export class VocabTermApp extends LitElement {
         // console.log(glossary); 
         // this.words = glossary.filter(el => this.search.includes(el.Word));
         // console.log(this.words);
+        this.words = [];
         for(const word in search) {
             var queryString = `word=${word.value}`;
             fetch(`${this.searchEnd}?${queryString}`).then(res => res.json()).then((data) => {
-                this.words = [];
                 console.log(data);
                 for(const item of data) {
                     const vocab = {
