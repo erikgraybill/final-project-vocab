@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   // queries a single word from vocab_database db
   const { word } = req.query;
 
-  const [dbResult] = await conn.query('SELECT * FROM VOCAB WHERE word=:word',word);
+  const [dbResult] = await conn.query('SELECT * FROM VOCAB WHERE word=:word', word);
 
   // cache
   res.setHeader('Cache-Control', 'max-age=0, s-maxage=300');

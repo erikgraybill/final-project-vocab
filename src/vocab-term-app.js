@@ -1,29 +1,26 @@
 import { LitElement, html, css } from 'lit';
 import "@lrnwebcomponents/vocab-term/vocab-term.js";
 
-// @feedback this is not the vocab-term, this is the app
-// I have taken the liberty of adding in the import that visualizes
-// the term which you copied the stub code for.
-// the scope of this element is to save data in a database
-// and then query a segment of text and return the possible words that it discovered
+
 export class VocabTermApp extends LitElement {
     static get tag() {
         return 'vocab-term-app'
     }
 
     static get properties() {
-		return {
-			addEnd: { type: String },
-            getEnd: { type: String },
-            removeEnd: { type: String },
-			term: { type: String },
-            def: { type: String },
-            links: { type: Array },
-            wordId: {},
-            renderType: { type: String },
-            words: { type: Array },
-            glossary: {},
-		}
+		    return {
+          addEnd: { type: String },
+          getEnd: { type: String },
+          removeEnd: { type: String },
+          searchEnd: { type: String },
+          term: { type: String },
+          def: { type: String },
+          links: { type: Array },
+          wordId: {},
+          renderType: { type: String },
+          words: { type: Array },
+          glossary: {},
+		   }
 	}
 
 	constructor() {
@@ -31,7 +28,8 @@ export class VocabTermApp extends LitElement {
         this.addEnd = '/api/addWord';
         this.getEnd = '/api/getWords';
         this.removeEnd = '/api/removeWord';
-	    this.term = '';
+        this.searchEnd = '/api/processWords'; 
+		    this.term = '';
         this.def = '';
         this.links = [];
         this.wordId = 0;
@@ -56,42 +54,48 @@ export class VocabTermApp extends LitElement {
         });
     }
 
-    async getTerms() {
-        await fetch(this.getEnd).then(res => res.json()).then((data) => {
+    searchTerms(input) {
+        const search = input.split(" ");
+        this.words = [];
+
+        fetch(this.getEnd).then(res => res.json()).then((data) => {
+            this.glossary = [];
+            for(const item of data) {
+                if(search.includes(item.Word)) {
+                    const vocab = {
+                        term: item["Word"],
+                        def: item["Definition"],
+                        links: item["Links"],
+                    };
+                    this.words.push(vocab);
+                }
+            }
+        });        
+        console.log(this.words);
+
+        this.renderType = 'list';
+        this.requestUpdate(this.renderType, 'term');             
+    }
+
+    viewTerms() {
+        fetch(this.getEnd).then(res => res.json()).then((data) => {
             this.words = [];
             console.log(data);
             for(const item of data) {
-                // console.log(item);
                 const vocab = {
                     term: item["Word"],
                     def: item["Definition"],
                     links: item["Links"],
-                    wordId: item["WordId"],
                 };
                 this.words.push(vocab);
             }
         });
-        return this.words;
-    }
-
-    async searchTerms(user) {
-        this.input = user.split(" ");
-        const glossary = this.getTerms().value;
-        console.log(glossary); 
-        this.words = glossary.filter(el => this.input.includes(el.Word));
-        console.log(this.words);
-        this.renderType = 'term';
-        return this.words; 
-    }
-
-    viewTerms() {
-        this.getTerms();
         this.renderType = 'list'
         this.requestUpdate(this.renderType, 'term');
     }
 
     processTerms() {
-        
+
     }
 
     renderResult() {
