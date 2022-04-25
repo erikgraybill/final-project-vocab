@@ -31,7 +31,7 @@ export class VocabTermApp extends LitElement {
         this.addEnd = '/api/addWord';
         this.getEnd = '/api/getWords';
         this.removeEnd = '/api/removeWord';
-        this.searchEnd = '/api/getWord'; // '/api/processWords';
+        this.searchEnd = '/api/processWords'; 
 		this.term = '';
         this.def = '';
         this.links = [];
@@ -74,11 +74,8 @@ export class VocabTermApp extends LitElement {
         });        
         console.log(this.words);
 
-        this.renderType = 'term';
-        // this.update(); 
-        // this.requestUpdate(this.words);
-        this.requestUpdate(this.renderType, 'list');            
-        return this.words;
+        this.renderType = 'list';
+        this.requestUpdate(this.renderType, 'term');            
     }
 
     viewTerms() {
