@@ -8,19 +8,19 @@ export class VocabTermApp extends LitElement {
     }
 
     static get properties() {
-		    return {
-          addEnd: { type: String },
-          getEnd: { type: String },
-          removeEnd: { type: String },
-          searchEnd: { type: String },
-          term: { type: String },
-          def: { type: String },
-          links: { type: Array },
-          wordId: {},
-          renderType: { type: String },
-          words: { type: Array },
-          glossary: {},
-		   }
+		return {
+            addEnd: { type: String },
+            getEnd: { type: String },
+            removeEnd: { type: String },
+            searchEnd: { type: String },
+            term: { type: String },
+            def: { type: String },
+            links: { type: Array },
+            wordId: {},
+            renderType: { type: String },
+            words: { type: Array },
+            glossary: {},
+		}
 	}
 
 	constructor() {
@@ -29,7 +29,7 @@ export class VocabTermApp extends LitElement {
         this.getEnd = '/api/getWords';
         this.removeEnd = '/api/removeWord';
         this.searchEnd = '/api/processWords'; 
-		    this.term = '';
+	    this.term = '';
         this.def = '';
         this.links = [];
         this.wordId = 0;
@@ -54,27 +54,23 @@ export class VocabTermApp extends LitElement {
         });
     }
 
-    searchTerms(input) {
-        const search = input.split(" ");
-        this.words = [];
-
-        fetch(this.getEnd).then(res => res.json()).then((data) => {
-            this.glossary = [];
+    async searchTerms(input) {
+        var queryString = `paragraph=${input}`;
+        await fetch(`${this.searchEnd}?${queryString}`).then(res => res.json()).then((data) => {
+            this.words = [];
             for(const item of data) {
-                if(search.includes(item.Word)) {
-                    const vocab = {
-                        term: item["Word"],
-                        def: item["Definition"],
-                        links: item["Links"],
-                    };
-                    this.words.push(vocab);
-                }
+                const vocab = {
+                    term: item["Word"],
+                    def: item["Definition"],
+                    links: item["Links"],
+                };
+                this.words.push(vocab);
             }
-        });        
+        });
+      
         console.log(this.words);
-
         this.renderType = 'list';
-        this.requestUpdate(this.renderType, 'term');             
+        this.requestUpdate(this.renderType, 'term');            
     }
 
     viewTerms() {
@@ -127,7 +123,7 @@ export class VocabTermApp extends LitElement {
                             import "./src/vocab-term-app.js";
                         </script>
                         <button @click="${this.deleteTerm}" data-id="${item.wordId}">Delete this word</button>
-                        </br>
+                        <br>
                     `)}
                 </dl>
             `
