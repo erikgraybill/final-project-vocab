@@ -2,7 +2,7 @@ import { PSDB } from 'planetscale-node';
 
 export default async function handler(req, res) {
   // connects to the database
-  const conn = new PSDB('main');
+  const conn = new PSDB('main', {namedPlaceholders: true});
 
   // queries a single word from vocab_database db
   const { word } = req.query;

@@ -20,6 +20,8 @@ export class VocabTermApp extends LitElement {
             renderType: { type: String },
             words: { type: Array },
             glossary: {},
+            processInput: { type: String },
+            processOutput: { type: String },
 		}
 	}
 
@@ -36,6 +38,8 @@ export class VocabTermApp extends LitElement {
         this.renderType = 'term';
         this.words = [];
         this.glossary = [];
+        this.processInput = '';
+        this.processOutput = '';
 	}
 
     addTerm(word) {
@@ -56,6 +60,7 @@ export class VocabTermApp extends LitElement {
 
     async searchTerms(input) {
         var queryString = `paragraph=${input}`;
+        this.processInput = input;
         await fetch(`${this.searchEnd}?${queryString}`).then(res => res.json()).then((data) => {
             this.words = [];
             for(const item of data) {
@@ -64,13 +69,14 @@ export class VocabTermApp extends LitElement {
                     def: item["Definition"],
                     links: item["Links"],
                 };
+                this.processInput = this.processInput.replaceAll(vocab.term, this.replaceTerm(vocab));
                 this.words.push(vocab);
             }
         });
-      
+        this.processOutput = input;
         console.log(this.words);
-        this.renderType = 'list';
-        this.requestUpdate(this.renderType, 'term');            
+        this.renderType = 'process';
+        this.requestUpdate(this.renderType, 'term');
     }
 
     viewTerms() {
@@ -86,12 +92,22 @@ export class VocabTermApp extends LitElement {
                 this.words.push(vocab);
             }
         });
-        this.renderType = 'list'
+        this.renderType = 'list';
         this.requestUpdate(this.renderType, 'term');
     }
 
-    processTerms() {
-
+    replaceTerm(word) {
+        return html`
+            <vocab-term>
+                <details>
+                <summary>${word.term}</summary>
+                <p slot="information">${word.def}</p>
+                <ul class="links">
+                    <li><a href="${word.links}">${word.links}</a></li>
+                </ul>
+                </details>
+            </vocab-term>
+        `
     }
 
     renderResult() {
@@ -109,6 +125,30 @@ export class VocabTermApp extends LitElement {
                         </details>
                     </vocab-term>
                 `)}
+            `
+        }
+        else if (this.renderType === 'process') {
+            return html`
+                <div>
+                ${this.words.map(
+                    item => html`
+                    <script type="module">
+                        import ".src/vocab-term-app.js";
+                        ${this.processInput = this.processInput.replaceAll(item.term, this.replaceTerm(item))};
+                        console.log(${this.processInput});
+                    </script>
+                    <vocab-term>
+                        <details>
+                        <summary>${item.term}</summary>
+                        <p slot="information">${item.def}</p>
+                        <ul class="links">
+                            <li><a href="${item.links}">${item.links}</a></li>
+                        </ul>
+                        </details>
+                    </vocab-term>
+                `)}
+                ${this.processInput}
+                </div>
             `
         }
         else {
