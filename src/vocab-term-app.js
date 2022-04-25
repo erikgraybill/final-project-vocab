@@ -98,18 +98,18 @@ export class VocabTermApp extends LitElement {
     renderResult() {
         if (this.renderType === 'term') {
             return html`
-                ${this.words.map(
-                    item => html`
-                    <vocab-term>
-                        <details>
-                        <summary>${item.term}</summary>
-                        <p slot="information">${item.def}</p>
-                        <ul class="links">
-                            <li><a href="${item.links}">${item.links}</a></li>
-                        </ul>
-                        </details>
-                    </vocab-term>
-                `)}
+                <vocab-term></vocab-term>
+                    ${this.words.map(
+                        item => html`
+                            <details>
+                            <summary>${item.term}</summary>
+                            <p slot="information">${item.def}</p>
+                            <ul class="links">
+                                <li><a href="${item.links}">${item.links}</a></li>
+                            </ul>
+                            </details>
+                        `)}
+                </vocab-term>
             `
         }
         else {
