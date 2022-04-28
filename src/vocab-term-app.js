@@ -92,9 +92,21 @@ export class VocabTermApp extends LitElement {
                 };
                 this.words.push(vocab);
             }
+            this.sortTerms(this.words);
         });
         this.renderType = 'list';
         this.requestUpdate();
+    }
+
+    sortTerms(list){
+        list.sort(function(a, b){
+            var wordA = a.term.toLowerCase(), wordB = b.term.toLowerCase();
+            if (wordA < wordB) //sort string ascending
+             return -1;
+            if (wordA > wordB)
+             return 1;
+            return 0; //default return value (no sorting)
+           });
     }
 
     replaceTerm(word) {
