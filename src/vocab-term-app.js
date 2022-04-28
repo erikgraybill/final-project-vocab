@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, render } from 'lit';
 import "@lrnwebcomponents/vocab-term/vocab-term.js";
 
 
@@ -72,11 +72,11 @@ export class VocabTermApp extends LitElement {
                 this.processInput = this.processInput.replaceAll(vocab.term, this.replaceTerm(vocab));
                 this.words.push(vocab);
             }
+            this.shadowRoot.querySelector('#inputhere').innerHTML = this.processInput;
         });
         this.processOutput = input;
         console.log(this.words);
         this.renderType = 'process';
-        this.requestUpdate(this.renderType, 'term');
     }
 
     viewTerms() {
@@ -88,16 +88,17 @@ export class VocabTermApp extends LitElement {
                     term: item["Word"],
                     def: item["Definition"],
                     links: item["Links"],
+                    wordId: item["WordId"],
                 };
                 this.words.push(vocab);
             }
         });
         this.renderType = 'list';
-        this.requestUpdate(this.renderType, 'term');
+        this.requestUpdate();
     }
 
     replaceTerm(word) {
-        return html`
+        return `
             <vocab-term>
                 <details>
                 <summary>${word.term}</summary>
@@ -110,8 +111,8 @@ export class VocabTermApp extends LitElement {
         `
     }
 
-    renderResult() {
-        if (this.renderType === 'term') {
+    renderResult(renderType) {
+        if (renderType === 'term') {
             return html`
                 ${this.words.map(
                     item => html`
@@ -127,16 +128,11 @@ export class VocabTermApp extends LitElement {
                 `)}
             `
         }
-        else if (this.renderType === 'process') {
+        else if (renderType === 'process') {
             return html`
                 <div>
                 ${this.words.map(
                     item => html`
-                    <script type="module">
-                        import ".src/vocab-term-app.js";
-                        ${this.processInput = this.processInput.replaceAll(item.term, this.replaceTerm(item))};
-                        console.log(${this.processInput});
-                    </script>
                     <vocab-term>
                         <details>
                         <summary>${item.term}</summary>
@@ -147,9 +143,7 @@ export class VocabTermApp extends LitElement {
                         </details>
                     </vocab-term>
                 `)}
-                ${this.processInput}
-                </div>
-            `
+                </div>`
         }
         else {
             return html`
@@ -159,11 +153,9 @@ export class VocabTermApp extends LitElement {
                         <dt>${item.term}</dt>
                         <dd>${item.def}</dd>
                         <dd>${item.links}</dd>
-                        <script type="module">
-                            import "./src/vocab-term-app.js";
-                        </script>
                         <button @click="${this.deleteTerm}" data-id="${item.wordId}">Delete this word</button>
-                        <br>
+                        </br>
+                        </br>
                     `)}
                 </dl>
             `
@@ -171,7 +163,7 @@ export class VocabTermApp extends LitElement {
     }
 
     render() {
-        return html`${this.renderResult()}` 
+        return html`${this.renderResult(this.renderType)}<div id="inputhere"></div>`
     }
 }
 customElements.define(VocabTermApp.tag, VocabTermApp);
