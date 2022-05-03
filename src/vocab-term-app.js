@@ -1,6 +1,6 @@
 import { LitElement, html, css, render } from 'lit';
 import "@lrnwebcomponents/vocab-term/vocab-term.js";
-//import '@lrnwebcomponents/accent-card.js';
+import "@lrnwebcomponents/accent-card/accent-card.js";
 
 
 export class VocabTermApp extends LitElement {
@@ -160,7 +160,17 @@ export class VocabTermApp extends LitElement {
         }
         else {
             return html`
-                <dl>
+                ${this.words.map(
+                    item => html`
+                    <accent-card accent-color="black" horizontal style="max-width:600px;">
+                        <div slot="heading">${item.term}</div>
+                        <div slot="content">Definition: ${item.def}</div>
+                        <div slot="content">Links: ${item.links}</div>
+                    </accent-card>
+                    <button @click="${this.deleteTerm}" data-id="${item.wordId}">Delete the above word</button>
+                    </br>
+                `)}
+            <!--<dl>
                     ${this.words.map(
                         item => html`
                         <dt>${item.term}</dt>
@@ -170,7 +180,7 @@ export class VocabTermApp extends LitElement {
                         <button @click="${this.deleteTerm}" data-id="${item.wordId}">Delete this word</button>
                         </br>
                     `)}
-                </dl>
+                </dl>-->
             `
         }
     }

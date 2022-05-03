@@ -74,6 +74,10 @@
       };
       console.log(term);
       document.querySelector('vocab-term-app').addTerm(term);
+
+      document.getElementById('term').value = '';
+      document.getElementById('definition').value = '';
+      document.getElementById('links').value = '';
     });
   </script>
   </br>
@@ -94,6 +98,8 @@
           const words = document.querySelector('#input').value;
           console.log(words);
           document.querySelector('#search').searchTerms(words);
+
+          document.getElementById('input').value = '';
       });
     </script>
 
