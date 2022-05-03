@@ -1,44 +1,69 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html style="font-size: 16px;">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="page_type" content="np-template-header-footer-from-plugin">
+    <title>Home</title>
+    <link rel="stylesheet" href="nicepage.css" media="screen">
+    <link rel="stylesheet" href="Home.css" media="screen">
+    <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
+    <meta name="generator" content="Nicepage 3.9.3, nicepage.com">
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
+    
+    <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": "",
+		"url": "index.html"
+    }</script>
+    <meta property="og:title" content="Home">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#478ac9">
+    <link rel="canonical" href="index.html">
+    <link href="rainbowButtonAdd.css" rel="stylesheet" type="text/css">
+    <meta property="og:url" content="index.html">
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="Description" content="IST 402 Vocab Glossary Final Project">
-  <title>Vocab Glossary</title>
-
-  <base href="/">
-
-  <style>
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: sans-serif;
-      background-color: #ededed;
-    }
-  </style>
-  <title>final-project-vocab</title>
-</head>
-
-<body>
+  <body data-home-page="Home.html" data-home-page-title="Home" class="u-body"><header class="u-border-12 u-border-grey-75 u-clearfix u-header" id="sec-638f"><div class="u-clearfix u-sheet u-valign-middle-md u-sheet-1">
+    <img class="u-expanded-width u-image u-image-1" src="images/VocabGlossaryBanner.gif" data-image-width="1691" data-image-height="686">
+    <div class="u-clearfix u-custom-html u-custom-html-1">
+      <audio src="partyintheusa.mp3" id="partyintheusa" loop="loop"></audio>
+      <script type="text/javascript"> window.onload=function(){
+        document.getElementById("partyintheusa").play();
+      } </script>
+    </div>
+  </div></header>
+  <section class="u-align-left u-border-12 u-border-custom-color-1 u-clearfix u-video u-section-1" id="sec-7e35">
+    <div class="u-background-video u-expanded">
+      <div class="embed-responsive embed-responsive-1">
+        <iframe style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;" class="embed-responsive-item" src="https://www.youtube.com/embed/B9YKnNtFqds?playlist=B9YKnNtFqds&amp;loop=1&amp;mute=1&amp;showinfo=0&amp;controls=0&amp;start=0&amp;autoplay=1" frameborder="0" allowfullscreen=""></iframe>
+      </div>
+    </div>
+  <body>
   <vocab-term-app id="w"></vocab-term-app>
     <!--Adding a new term section-->
-    <h1>Add New Word</h1>
-    <div>
-        <label for="term">Word:</label>
-        <input type="text" id="term" name="term" placeholder="Enter new term"/>
-    </div>
-    <div>
-        <label for="definition">Definition:</label>
-        <input type="text" id="definition" name="definition" placeholder="Enter term definition"/>
-    </div>
-    <div>
-        <label for="links">Links:</label>
-        <input type="text" id="links" name="links" placeholder="Add any links"/>
-    </div>
-    <button id="add">Add Word</button>
+    <center>
+      <h1> <img src="newwordlogo.png" alt="Add New Word"> </h1>
+        
+        <div>
+            <label style = "background-color: white" for="term">&nbsp; Term: &nbsp;</label>
+            <input type="text" id="term" name="term" placeholder="Enter new term here"/>
+        </div>
+        <div>
+            <label style = "background-color: white" for="definition">&nbsp; Definition: &nbsp;</label>
+            <input type="text" id="definition" name="definition" placeholder="Enter term definition"/>
+        </div>
+        <div>
+            <label style = "background-color: white" for="links">&nbsp; Links: &nbsp;</label>
+            <input type="text" id="links" name="links" placeholder="Add any links here"/>
+        </div>
+        
+       <button id="add" type="submit">Add Word</button> 
+    </center>
   <script type="module">
     import "./src/vocab-term-app.js";
     document.querySelector('#add').addEventListener('click', (e) => {
@@ -52,37 +77,40 @@
     });
   </script>
   </br>
+  <center> 
+  
+    <!--Search and Process Section-->
+    <h1> <img src="searchVocabimg.png" alt="Search Vocab"></h1>
+    <input id="input" type="text" placeholder="Enter text to search"></input>
+    <br>
+    <button id="process">Search</button>
+    <br>
+    <vocab-term-app id="search"></vocab-term-app>
+    <script type="module">
+      import "./src/vocab-term-app.js";
+      import "@lrnwebcomponents/vocab-term/vocab-term.js";
+      //search vocab database, replace words with vocab-term
+      document.querySelector('#process').addEventListener('click', e => {
+          const words = document.querySelector('#input').value;
+          console.log(words);
+          document.querySelector('#search').searchTerms(words);
+      });
+    </script>
+    </br>
 
-  <!--Search and Process Section-->
-  <h1>Search Vocab</h1>
-  <input id="input" type="text" placeholder="Enter text to search"></input>
-  <br>
-  <button id="process">Search</button>
-  <br>
-  <vocab-term-app id="search"></vocab-term-app>
-  <script type="module">
-    import "./src/vocab-term-app.js";
-    import "@lrnwebcomponents/vocab-term/vocab-term.js";
-    //search vocab database, replace words with vocab-term
-    document.querySelector('#process').addEventListener('click', e => {
-        const words = document.querySelector('#input').value;
-        console.log(words);
-        document.querySelector('#search').searchTerms(words);
-    });
-  </script>
-  </br>
-
-  <!--Show full glossary section--> 
-  <h1>Glossary</h1>
-  <button id="showall">Show full glossary</button>
-  <vocab-term-app id="gloss"></vocab-term-app>
-  </br>
-  <script type="module">
-    import "./src/vocab-term-app.js";
-    // load full glossary as dl 
-    document.querySelector('#showall').addEventListener('click', (e) => {
-      document.querySelector('#gloss').viewTerms(); 
-    });        
-  </script>
+    <!--Show full glossary section--> 
+    <h1><img src="GlossaryImg.png" alt="Glossary"></h1>
+    <button id="showall">Show full glossary</button>
+    <vocab-term-app id="gloss"></vocab-term-app>
+    </br>
+    <script type="module">
+      import "./src/vocab-term-app.js";
+      // load full glossary as dl 
+      document.querySelector('#showall').addEventListener('click', (e) => {
+        document.querySelector('#gloss').viewTerms(); 
+      });        
+    </script>
+  </center></body>
+  </section>
   </body>
 </html>
