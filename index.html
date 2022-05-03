@@ -64,6 +64,8 @@
         
        <button id="add" type="submit">Add Word</button> 
     </center>
+
+  <img id ="aircraft" src = "images/planegif.gif" style = "display:none;">
   <script type="module">
     import "./src/vocab-term-app.js";
     document.querySelector('#add').addEventListener('click', (e) => {
@@ -74,6 +76,12 @@
       };
       console.log(term);
       document.querySelector('vocab-term-app').addTerm(term);
+
+      document.getElementById('aircraft').style.display = "block";
+
+      setTimeout(() => {
+        document.getElementById('aircraft').style.display = 'none';
+      }, 5000);
 
       document.getElementById('term').value = '';
       document.getElementById('definition').value = '';
