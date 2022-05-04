@@ -16,6 +16,18 @@ getWords.js
 - It requires an action from our microfrontend (READ)
 - Returns all words with their descriptions and any links from Planetscale
 
+processWords.js
+- Located in /api
+- Communicates with planetscale and our microfrontend
+- It requires an action from our microfrontend (READ)
+- Returns the words that have vocab definitions from Planetscale
+
+removeWord.js
+- Located in /api
+- Communicates with Planetscale and our microfrontend
+- It requires an action from our microfrontend (DELETE)
+- Deletes specified word from Planetscale
+
 vocab-term.js
 - Located in /src
 - Gets values/button clicks from frontend, processes them to go to Planetscale or to be shown on frontend, and communicates with vocab.js to work with Planetscale
